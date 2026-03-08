@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tính nhanh giá giảm</title>
+  <style>
+    :root{
+      --bg1:#eef4ff;
+      --bg2:#f7f9fc;
+      --card:#ffffffcc;
+      --card-solid:#ffffff;
+      --text:#111827;
+      --sub:#6b7280;
+      --line:#e8edf5;
+      --blue:#007aff;
+      --blue-soft:#eaf3ff;
+      --green:#16a34a;
+      --green-soft:#edfdf3;
+      --red:#ef4444;
+      --red-soft:#fff1f2;
+      --shadow:0 20px 50px rgba(31,41,55,.10);
+      --shadow-soft:0 8px 24px rgba(31,41,55,.06);
+      --radius-xl:28px;
+      --radius-lg:22px;
+      --radius-md:18px;
+      --radius-sm:14px;
+      --wheel-row:50px;
+      --wheel-visible:5;
+      --wheel-height: calc(var(--wheel-row) * var(--wheel-visible));
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, #dbeafe 0%, transparent 32%),
+        radial-gradient(circle at top right, #e0f2fe 0%, transparent 28%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+
+    body{
+      padding:18px 16px 28px;
+    }
+
+    .wrap{
+      max-width:460px;
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:8px 4px 16px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(255,255,255,.65);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      box-shadow:var(--shadow-soft);
+      color:#2563eb;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .badge-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--blue);
+      box-shadow:0 0 0 4px rgba(0,122,255,.10);
+    }
+
+    .title{
+      font-size:32px;
+      font-weight:800;
+      line-height:1.1;
+      margin:0 0 8px;
+      letter-spacing:-.4px;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--sub);
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.65);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .section{
+      margin-bottom:18px;
+    }
+
+    .label{
+      display:block;
+      font-size:14px;
+      font-weight:800;
+      color:#374151;
+      margin-bottom:9px;
+      padding-left:2px;
+    }
+
+    .input-wrap,
+    .picker-button{
+      position:relative;
+      width:100%;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.96);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+      transition:.2s ease;
+    }
+
+    .input-wrap:focus-within,
+    .picker-button:focus{
+      border-color:#bfd8ff;
+      box-shadow:
+        0 0 0 4px rgba(0,122,255,.10),
+        inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    .money-icon{
+      position:absolute;
+      left:15px;
+      top:50%;
+      transform:translateY(-50%);
+      width:28px;
+      height:28px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--blue-soft);
+      color:var(--blue);
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .input{
+      width:100%;
+      height:60px;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:0 16px 0 54px;
+      font-size:24px;
+      font-weight:800;
+      color:var(--text);
+      border-radius:20px;
+    }
+
+    .input::placeholder{
+      color:#9ca3af;
+      font-weight:600;
+    }
+
+    .picker-button{
+      min-height:60px;
+      padding:0 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      cursor:pointer;
+      outline:none;
+    }
+
+    .picker-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .picker-icon{
+      width:30px;
+      height:30px;
+      border-radius:11px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff7ed;
+      color:#f97316;
+      font-size:15px;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .picker-text{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      min-width:0;
+    }
+
+    .picker-title{
+      font-size:12px;
+      color:var(--sub);
+      font-weight:700;
+      margin-bottom:2px;
+    }
+
+    .picker-value{
+      font-size:22px;
+      font-weight:800;
+      color:var(--text);
+      line-height:1;
+    }
+
+    .picker-arrow{
+      font-size:24px;
+      color:#9ca3af;
+      line-height:1;
+      flex:0 0 auto;
+    }
+
+    .result-card{
+      border-radius:24px;
+      padding:16px;
+      background:linear-gradient(180deg, #ffffff, #f8fbff);
+      border:1px solid #e7eef9;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .result-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .result-title{
+      font-size:16px;
+      font-weight:800;
+      margin:0;
+    }
+
+    .selected-tag{
+      background:var(--blue-soft);
+      color:var(--blue);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .result-main{
+      background:linear-gradient(135deg, #0f172a, #1e3a8a);
+      color:#fff;
+      border-radius:22px;
+      padding:18px;
+      margin-bottom:12px;
+      box-shadow:0 12px 26px rgba(30,58,138,.22);
+    }
+
+    .result-main-label{
+      font-size:13px;
+      color:rgba(255,255,255,.72);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .result-main-value{
+      font-size:34px;
+      line-height:1.05;
+      font-weight:900;
+      letter-spacing:-.8px;
+      word-break:break-word;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .mini{
+      border-radius:18px;
+      padding:14px;
+      border:1px solid var(--line);
+    }
+
+    .mini.green{
+      background:var(--green-soft);
+      border-color:#d8f5e2;
+    }
+
+    .mini.red{
+      background:var(--red-soft);
+      border-color:#ffe1e6;
+    }
+
+    .mini-label{
+      font-size:12px;
+      color:var(--sub);
+      font-weight:800;
+      margin-bottom:7px;
+    }
+
+    .mini-value{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.4px;
+      line-height:1.1;
+      word-break:break-word;
+    }
+
+    .mini.green .mini-value{ color:var(--green); }
+    .mini.red .mini-value{ color:var(--red); }
+
+    .list-card{
+      margin-top:18px;
+      border-radius:24px;
+      padding:16px;
+      background:linear-gradient(180deg, #ffffff, #fafcff);
+      border:1px solid #e7eef9;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .list-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .list-title{
+      margin:0;
+      font-size:16px;
+      font-weight:800;
+    }
+
+    .list-note{
+      font-size:12px;
+      color:var(--sub);
+      font-weight:700;
+      text-align:right;
+    }
+
+    .price-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+
+    .price-item{
+      padding:13px 14px;
+      border-radius:18px;
+      border:1px solid #e8edf5;
+      background:#fbfcfe;
+      transition:.18s ease;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .price-item.active{
+      background:linear-gradient(180deg, #eff6ff, #f8fbff);
+      border-color:#b9d7ff;
+      box-shadow:0 8px 18px rgba(59,130,246,.10);
+    }
+
+    .price-item .p{
+      font-size:13px;
+      color:var(--sub);
+      font-weight:800;
+    }
+
+    .price-item .v{
+      font-size:18px;
+      font-weight:900;
+      color:var(--text);
+      letter-spacing:-.3px;
+      line-height:1.15;
+      word-break:break-word;
+    }
+
+    .footer-note{
+      margin-top:14px;
+      text-align:center;
+      font-size:12px;
+      color:#7b8794;
+      font-weight:700;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:9999;
+    }
+
+    .modal.show{
+      display:block;
+    }
+
+    .backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(15,23,42,.24);
+      opacity:0;
+      transition:opacity .22s ease;
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+    }
+
+    .sheet{
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      background:rgba(255,255,255,.90);
+      backdrop-filter:blur(22px);
+      -webkit-backdrop-filter:blur(22px);
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.75);
+      box-shadow:0 24px 50px rgba(15,23,42,.20);
+      overflow:hidden;
+      transform:translateY(30px);
+      opacity:0;
+      transition:transform .24s ease, opacity .24s ease;
+    }
+
+    .modal.show .backdrop{
+      opacity:1;
+    }
+
+    .modal.show .sheet{
+      transform:translateY(0);
+      opacity:1;
+    }
+
+    .sheet-grabber{
+      width:48px;
+      height:5px;
+      border-radius:999px;
+      background:rgba(107,114,128,.25);
+      margin:10px auto 4px;
+    }
+
+    .sheet-head{
+      text-align:center;
+      font-weight:800;
+      font-size:20px;
+      padding:8px 16px 8px;
+    }
+
+    .sheet-sub{
+      text-align:center;
+      color:var(--sub);
+      font-size:13px;
+      font-weight:700;
+      padding:0 16px 10px;
+    }
+
+    .wheel-wrap{
+      position:relative;
+      height:var(--wheel-height);
+      margin:4px 14px 10px;
+      overflow:hidden;
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(246,248,252,.96));
+      border:1px solid rgba(226,232,240,.9);
+    }
+
+    .wheel-fade-top,
+    .wheel-fade-bottom{
+      position:absolute;
+      left:0;
+      right:0;
+      height:84px;
+      z-index:3;
+      pointer-events:none;
+    }
+
+    .wheel-fade-top{
+      top:0;
+      background:linear-gradient(to bottom, rgba(255,255,255,.98), rgba(255,255,255,0));
+    }
+
+    .wheel-fade-bottom{
+      bottom:0;
+      background:linear-gradient(to top, rgba(255,255,255,.98), rgba(255,255,255,0));
+    }
+
+    .wheel-center{
+      position:absolute;
+      left:10px;
+      right:10px;
+      top:50%;
+      height:var(--wheel-row);
+      transform:translateY(-50%);
+      border-radius:16px;
+      background:rgba(0,122,255,.08);
+      border:1px solid rgba(0,122,255,.08);
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .wheel{
+      position:relative;
+      z-index:1;
+      height:100%;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      scroll-snap-type:y mandatory;
+      -webkit-overflow-scrolling:touch;
+      padding:calc(var(--wheel-row) * 2) 0;
+      scrollbar-width:none;
+    }
+
+    .wheel::-webkit-scrollbar{
+      display:none;
+    }
+
+    .wheel-item{
+      height:var(--wheel-row);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      color:#a1a1aa;
+      font-weight:700;
+      scroll-snap-align:center;
+      user-select:none;
+      transition:all .15s ease;
+      letter-spacing:-.2px;
+    }
+
+    .wheel-item.active{
+      color:#0f172a;
+      font-size:30px;
+      font-weight:900;
+    }
+
+    .sheet-actions{
+      padding:10px 16px calc(16px + env(safe-area-inset-bottom));
+      border-top:1px solid rgba(0,0,0,.04);
+      background:rgba(255,255,255,.55);
+    }
+
+    .confirm-btn{
+      width:100%;
+      height:56px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(180deg, #1d4ed8, #007aff);
+      color:#fff;
+      font-size:19px;
+      font-weight:800;
+      box-shadow:0 10px 20px rgba(0,122,255,.22);
+      cursor:pointer;
+    }
+
+    .confirm-btn:active{
+      transform:scale(.995);
+    }
+
+    @media (max-width:390px){
+      .title{ font-size:28px; }
+      .result-main-value{ font-size:30px; }
+      .mini-value{ font-size:19px; }
+      .price-item .v{ font-size:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Tính giá giảm nhanh
+      </div>
+      <h1 class="title">Giảm giá trong 1 chạm</h1>
+      <p class="subtitle">Nhập giá gốc, chọn mức giảm và xem ngay số tiền được giảm cùng giá sau giảm.</p>
+    </div>
+
+    <div class="card">
+      <div class="section">
+        <label class="label" for="originalPrice">Giá gốc</label>
+        <div class="input-wrap">
+          <div class="money-icon">₫</div>
+          <input
+            id="originalPrice"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            placeholder="Nhập giá gốc"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div class="section">
+        <label class="label">Mức giảm</label>
+        <button class="picker-button" id="openPicker" type="button">
+          <div class="picker-left">
+            <div class="picker-icon">%</div>
+            <div class="picker-text">
+              <div class="picker-title">Đang chọn</div>
+              <div class="picker-value" id="selectedDiscountText">20%</div>
+            </div>
+          </div>
+          <div class="picker-arrow">›</div>
+        </button>
+      </div>
+
+      <div class="result-card">
+        <div class="result-top">
+          <h2 class="result-title">Kết quả</h2>
+          <div class="selected-tag" id="selectedTag">Giảm 20%</div>
+        </div>
+
+        <div class="result-main">
+          <div class="result-main-label">Giá sau giảm</div>
+          <div class="result-main-value" id="finalPrice">0 ₫</div>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini green">
+            <div class="mini-label">Tiền giảm</div>
+            <div class="mini-value" id="discountAmount">0 ₫</div>
+          </div>
+          <div class="mini red">
+            <div class="mini-label">Giá gốc còn lại</div>
+            <div class="mini-value" id="remainPercent">80%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-card">
+        <div class="list-head">
+          <h3 class="list-title">Bảng giá theo mức giảm</h3>
+          <div class="list-note">20% đến 60%<br>cách nhau 5%</div>
+        </div>
+        <div class="price-grid" id="priceGrid"></div>
+      </div>
+
+      <div class="footer-note">Bấm vào ô mức giảm để mở khung cuộn kiểu iPhone</div>
+    </div>
+  </div>
+
+  <div class="modal" id="pickerModal" aria-hidden="true">
+    <div class="backdrop" id="closePicker"></div>
+
+    <div class="sheet">
+      <div class="sheet-grabber"></div>
+      <div class="sheet-head">Chọn mức giảm</div>
+      <div class="sheet-sub">Vuốt lên xuống để chọn nhanh</div>
+
+      <div class="wheel-wrap">
+        <div class="wheel-fade-top"></div>
+        <div class="wheel-fade-bottom"></div>
+        <div class="wheel-center"></div>
+        <div class="wheel" id="wheel"></div>
+      </div>
+
+      <div class="sheet-actions">
+        <button class="confirm-btn" id="confirmPicker" type="button">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const originalPriceInput = document.getElementById("originalPrice");
+    const selectedDiscountText = document.getElementById("selectedDiscountText");
+    const selectedTag = document.getElementById("selectedTag");
+    const discountAmountEl = document.getElementById("discountAmount");
+    const finalPriceEl = document.getElementById("finalPrice");
+    const remainPercentEl = document.getElementById("remainPercent");
+    const priceGrid = document.getElementById("priceGrid");
+
+    const openPickerBtn = document.getElementById("openPicker");
+    const pickerModal = document.getElementById("pickerModal");
+    const closePicker = document.getElementById("closePicker");
+    const confirmPicker = document.getElementById("confirmPicker");
+    const wheel = document.getElementById("wheel");
+
+    const discounts = [20, 25, 30, 35, 40, 45, 50, 55, 60];
+
+    let selectedDiscount = 20;
+    let tempDiscount = 20;
+    let wheelScrollTimer = null;
+
+    function formatCurrency(number) {
+      return new Intl.NumberFormat("vi-VN").format(Math.round(number)) + " ₫";
+    }
+
+    function rawNumber(value) {
+      return value.replace(/\D/g, "");
+    }
+
+    function formatInputNumber(value) {
+      const raw = rawNumber(value);
+      if (!raw) return "";
+      return new Intl.NumberFormat("vi-VN").format(Number(raw));
+    }
+
+    function getOriginalPrice() {
+      return Number(rawNumber(originalPriceInput.value)) || 0;
+    }
+
+    function updateSummary() {
+      const price = getOriginalPrice();
+      const discountAmount = price * selectedDiscount / 100;
+      const finalPrice = price - discountAmount;
+      const remainPercent = 100 - selectedDiscount;
+
+      selectedDiscountText.textContent = selectedDiscount + "%";
+      selectedTag.textContent = "Giảm " + selectedDiscount + "%";
+      discountAmountEl.textContent = formatCurrency(discountAmount);
+      finalPriceEl.textContent = formatCurrency(finalPrice);
+      remainPercentEl.textContent = remainPercent + "%";
+
+      renderPriceGrid(price);
+    }
+
+    function renderPriceGrid(price) {
+      priceGrid.innerHTML = "";
+
+      discounts.forEach(percent => {
+        const discounted = price - (price * percent / 100);
+
+        const item = document.createElement("div");
+        item.className = "price-item" + (percent === selectedDiscount ? " active" : "");
+
+        const p = document.createElement("div");
+        p.className = "p";
+        p.textContent = "Giảm " + percent + "%";
+
+        const v = document.createElement("div");
+        v.className = "v";
+        v.textContent = formatCurrency(discounted);
+
+        item.appendChild(p);
+        item.appendChild(v);
+
+        item.addEventListener("click", () => {
+          selectedDiscount = percent;
+          tempDiscount = percent;
+          updateSummary();
+        });
+
+        priceGrid.appendChild(item);
+      });
+    }
+
+    function buildWheel() {
+      wheel.innerHTML = "";
+
+      discounts.forEach(percent => {
+        const item = document.createElement("div");
+        item.className = "wheel-item";
+        item.dataset.value = percent;
+        item.textContent = percent + "%";
+        wheel.appendChild(item);
+      });
+
+      highlightWheel();
+    }
+
+    function getRowHeight() {
+      return 50;
+    }
+
+    function scrollWheelToValue(value, smooth = true) {
+      const index = discounts.indexOf(value);
+      if (index < 0) return;
+
+      const top = index * getRowHeight();
+      wheel.scrollTo({
+        top,
+        behavior: smooth ? "smooth" : "auto"
+      });
+
+      tempDiscount = value;
+      highlightWheel();
+    }
+
+    function getNearestValueFromScroll() {
+      const rowHeight = getRowHeight();
+      const index = Math.round(wheel.scrollTop / rowHeight);
+      const safeIndex = Math.max(0, Math.min(discounts.length - 1, index));
+      return discounts[safeIndex];
+    }
+
+    function snapWheel() {
+      const value = getNearestValueFromScroll();
+      tempDiscount = value;
+      scrollWheelToValue(value, true);
+      highlightWheel();
+    }
+
+    function highlightWheel() {
+      const items = wheel.querySelectorAll(".wheel-item");
+      items.forEach(item => {
+        const value = Number(item.dataset.value);
+        item.classList.toggle("active", value === tempDiscount);
+      });
+    }
+
+    function openModal() {
+      pickerModal.classList.add("show");
+      pickerModal.setAttribute("aria-hidden", "false");
+      tempDiscount = selectedDiscount;
+      highlightWheel();
+
+      setTimeout(() => {
+        scrollWheelToValue(selectedDiscount, false);
+      }, 10);
+    }
+
+    function closeModal() {
+      pickerModal.classList.remove("show");
+      pickerModal.setAttribute("aria-hidden", "true");
+    }
+
+    originalPriceInput.addEventListener("input", () => {
+      originalPriceInput.value = formatInputNumber(originalPriceInput.value);
+      updateSummary();
+    });
+
+    openPickerBtn.addEventListener("click", openModal);
+    closePicker.addEventListener("click", closeModal);
+
+    confirmPicker.addEventListener("click", () => {
+      selectedDiscount = tempDiscount;
+      updateSummary();
+      closeModal();
+    });
+
+    wheel.addEventListener("scroll", () => {
+      tempDiscount = getNearestValueFromScroll();
+      highlightWheel();
+
+      clearTimeout(wheelScrollTimer);
+      wheelScrollTimer = setTimeout(() => {
+        snapWheel();
+      }, 80);
+    });
+
+    wheel.addEventListener("touchend", () => {
+      setTimeout(() => {
+        snapWheel();
+      }, 60);
+    }, { passive: true });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && pickerModal.classList.contains("show")) {
+        closeModal();
+      }
+    });
+
+    buildWheel();
+    updateSummary();
+  </script>
+</body>
+</html>
