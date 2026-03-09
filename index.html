@@ -2,14 +2,25 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+  />
   <title>Tính nhanh giá giảm</title>
+
+  <meta name="theme-color" content="#007aff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Giảm giá" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.png.PNG" />
+
   <style>
     :root{
       --bg1:#eef4ff;
       --bg2:#f7f9fc;
       --card:#ffffffcc;
-      --card-solid:#ffffff;
       --text:#111827;
       --sub:#6b7280;
       --line:#e8edf5;
@@ -19,12 +30,11 @@
       --green-soft:#edfdf3;
       --red:#ef4444;
       --red-soft:#fff1f2;
+      --orange:#f97316;
+      --orange-soft:#fff7ed;
       --shadow:0 20px 50px rgba(31,41,55,.10);
       --shadow-soft:0 8px 24px rgba(31,41,55,.06);
       --radius-xl:28px;
-      --radius-lg:22px;
-      --radius-md:18px;
-      --radius-sm:14px;
       --wheel-row:50px;
       --wheel-visible:5;
       --wheel-height: calc(var(--wheel-row) * var(--wheel-visible));
@@ -52,7 +62,7 @@
     }
 
     .wrap{
-      max-width:460px;
+      max-width:480px;
       margin:0 auto;
     }
 
@@ -202,8 +212,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background:#fff7ed;
-      color:#f97316;
+      background:var(--orange-soft);
+      color:var(--orange);
       font-size:15px;
       font-weight:900;
       flex:0 0 auto;
@@ -237,15 +247,18 @@
       flex:0 0 auto;
     }
 
-    .result-card{
+    .result-card,
+    .list-card{
       border-radius:24px;
       padding:16px;
       background:linear-gradient(180deg, #ffffff, #f8fbff);
       border:1px solid #e7eef9;
       box-shadow:var(--shadow-soft);
+      margin-top:18px;
     }
 
-    .result-top{
+    .result-top,
+    .list-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -253,7 +266,8 @@
       margin-bottom:14px;
     }
 
-    .result-title{
+    .result-title,
+    .list-title{
       font-size:16px;
       font-weight:800;
       margin:0;
@@ -333,34 +347,41 @@
     .mini.green .mini-value{ color:var(--green); }
     .mini.red .mini-value{ color:var(--red); }
 
-    .list-card{
+    .segment{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      background:#eef4ff;
+      border-radius:18px;
+      padding:6px;
       margin-top:18px;
-      border-radius:24px;
-      padding:16px;
-      background:linear-gradient(180deg, #ffffff, #fafcff);
-      border:1px solid #e7eef9;
-      box-shadow:var(--shadow-soft);
+      border:1px solid #dbe7fb;
     }
 
-    .list-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
-    }
-
-    .list-title{
-      margin:0;
-      font-size:16px;
+    .segment-btn{
+      height:46px;
+      border:none;
+      border-radius:14px;
+      background:transparent;
+      color:#64748b;
+      font-size:14px;
       font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
     }
 
-    .list-note{
-      font-size:12px;
-      color:var(--sub);
-      font-weight:700;
-      text-align:right;
+    .segment-btn.active{
+      background:#ffffff;
+      color:#0f172a;
+      box-shadow:0 4px 12px rgba(15,23,42,.08);
+    }
+
+    .panel{
+      display:none;
+    }
+
+    .panel.active{
+      display:block;
     }
 
     .price-grid{
@@ -378,6 +399,7 @@
       display:flex;
       flex-direction:column;
       gap:7px;
+      cursor:pointer;
     }
 
     .price-item.active{
@@ -401,15 +423,66 @@
       word-break:break-word;
     }
 
+    .table-wrap{
+      display:grid;
+      gap:10px;
+      max-height:480px;
+      overflow:auto;
+      padding-right:2px;
+    }
+
+    .table-item{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      align-items:center;
+      border:1px solid #e8edf5;
+      background:#fbfcfe;
+      border-radius:16px;
+      padding:12px 14px;
+    }
+
+    .table-left,
+    .table-right{
+      min-width:0;
+    }
+
+    .table-k{
+      font-size:12px;
+      color:var(--sub);
+      font-weight:800;
+      margin-bottom:5px;
+    }
+
+    .table-v{
+      font-size:18px;
+      font-weight:900;
+      color:var(--text);
+      line-height:1.15;
+      word-break:break-word;
+    }
+
     .footer-note{
       margin-top:14px;
       text-align:center;
       font-size:12px;
       color:#7b8794;
       font-weight:700;
+      line-height:1.5;
     }
 
-    /* Modal */
+    .install-tip{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.75);
+      border:1px solid #e8edf5;
+      font-size:12px;
+      color:#64748b;
+      font-weight:700;
+      line-height:1.5;
+    }
+
     .modal{
       position:fixed;
       inset:0;
@@ -587,7 +660,8 @@
       .title{ font-size:28px; }
       .result-main-value{ font-size:30px; }
       .mini-value{ font-size:19px; }
-      .price-item .v{ font-size:16px; }
+      .price-item .v,
+      .table-v{ font-size:16px; }
     }
   </style>
 </head>
@@ -599,7 +673,7 @@
         Tính giá giảm nhanh
       </div>
       <h1 class="title">Giảm giá trong 1 chạm</h1>
-      <p class="subtitle">Nhập giá gốc, chọn mức giảm và xem ngay số tiền được giảm cùng giá sau giảm.</p>
+      <p class="subtitle">Nhập giá gốc, chọn mức giảm và xem 2 kiểu kết quả khác nhau.</p>
     </div>
 
     <div class="card">
@@ -633,38 +707,62 @@
         </button>
       </div>
 
-      <div class="result-card">
-        <div class="result-top">
-          <h2 class="result-title">Kết quả</h2>
-          <div class="selected-tag" id="selectedTag">Giảm 20%</div>
-        </div>
+      <div class="segment">
+        <button class="segment-btn active" id="tabQuickBtn" type="button">Kết quả nhanh</button>
+        <button class="segment-btn" id="tabTableBtn" type="button">Bảng 20k–100k</button>
+      </div>
 
-        <div class="result-main">
-          <div class="result-main-label">Giá sau giảm</div>
-          <div class="result-main-value" id="finalPrice">0 ₫</div>
-        </div>
-
-        <div class="mini-grid">
-          <div class="mini green">
-            <div class="mini-label">Tiền giảm</div>
-            <div class="mini-value" id="discountAmount">0 ₫</div>
+      <div class="panel active" id="panelQuick">
+        <div class="result-card">
+          <div class="result-top">
+            <h2 class="result-title">Kết quả theo giá gốc nhập</h2>
+            <div class="selected-tag" id="selectedTag">Giảm 20%</div>
           </div>
-          <div class="mini red">
-            <div class="mini-label">Giá gốc còn lại</div>
-            <div class="mini-value" id="remainPercent">80%</div>
+
+          <div class="result-main">
+            <div class="result-main-label">Giá sau giảm</div>
+            <div class="result-main-value" id="finalPrice">0 ₫</div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini green">
+              <div class="mini-label">Tiền giảm</div>
+              <div class="mini-value" id="discountAmount">0 ₫</div>
+            </div>
+            <div class="mini red">
+              <div class="mini-label">Còn lại</div>
+              <div class="mini-value" id="remainPercent">80%</div>
+            </div>
+          </div>
+
+          <div class="list-card">
+            <div class="list-head">
+              <h3 class="list-title">Các mức giảm nhanh</h3>
+              <div class="selected-tag">Chạm để chọn</div>
+            </div>
+            <div class="price-grid" id="priceGrid"></div>
           </div>
         </div>
       </div>
 
-      <div class="list-card">
-        <div class="list-head">
-          <h3 class="list-title">Bảng giá theo mức giảm</h3>
-          <div class="list-note">20% đến 60%<br>cách nhau 5%</div>
+      <div class="panel" id="panelTable">
+        <div class="list-card">
+          <div class="list-head">
+            <h3 class="list-title">Bảng giá gốc từ 20.000 đến 100.000</h3>
+            <div class="selected-tag" id="tableTag">Giảm 20%</div>
+          </div>
+          <div class="table-wrap" id="rangeTable"></div>
         </div>
-        <div class="price-grid" id="priceGrid"></div>
       </div>
 
-      <div class="footer-note">Bấm vào ô mức giảm để mở khung cuộn kiểu iPhone</div>
+      <div class="footer-note">
+        Kết quả nhanh: tính theo giá bạn nhập<br>
+        Bảng 20k–100k: tính sẵn từ giá gốc 20.000 đến 100.000 theo % đang chọn
+      </div>
+
+      <div class="install-tip">
+        Trên iPhone: mở bằng Safari → Chia sẻ → Thêm vào màn hình chính.
+      </div>
     </div>
   </div>
 
@@ -693,10 +791,17 @@
     const originalPriceInput = document.getElementById("originalPrice");
     const selectedDiscountText = document.getElementById("selectedDiscountText");
     const selectedTag = document.getElementById("selectedTag");
+    const tableTag = document.getElementById("tableTag");
     const discountAmountEl = document.getElementById("discountAmount");
     const finalPriceEl = document.getElementById("finalPrice");
     const remainPercentEl = document.getElementById("remainPercent");
     const priceGrid = document.getElementById("priceGrid");
+    const rangeTable = document.getElementById("rangeTable");
+
+    const tabQuickBtn = document.getElementById("tabQuickBtn");
+    const tabTableBtn = document.getElementById("tabTableBtn");
+    const panelQuick = document.getElementById("panelQuick");
+    const panelTable = document.getElementById("panelTable");
 
     const openPickerBtn = document.getElementById("openPicker");
     const pickerModal = document.getElementById("pickerModal");
@@ -728,6 +833,16 @@
       return Number(rawNumber(originalPriceInput.value)) || 0;
     }
 
+    function setActiveTab(tabName) {
+      const isQuick = tabName === "quick";
+
+      tabQuickBtn.classList.toggle("active", isQuick);
+      tabTableBtn.classList.toggle("active", !isQuick);
+
+      panelQuick.classList.toggle("active", isQuick);
+      panelTable.classList.toggle("active", !isQuick);
+    }
+
     function updateSummary() {
       const price = getOriginalPrice();
       const discountAmount = price * selectedDiscount / 100;
@@ -736,11 +851,13 @@
 
       selectedDiscountText.textContent = selectedDiscount + "%";
       selectedTag.textContent = "Giảm " + selectedDiscount + "%";
+      tableTag.textContent = "Giảm " + selectedDiscount + "%";
       discountAmountEl.textContent = formatCurrency(discountAmount);
       finalPriceEl.textContent = formatCurrency(finalPrice);
       remainPercentEl.textContent = remainPercent + "%";
 
       renderPriceGrid(price);
+      renderRangeTable();
     }
 
     function renderPriceGrid(price) {
@@ -771,6 +888,35 @@
 
         priceGrid.appendChild(item);
       });
+    }
+
+    function renderRangeTable() {
+      rangeTable.innerHTML = "";
+
+      for (let price = 20000; price <= 100000; price += 1000) {
+        const discounted = price - (price * selectedDiscount / 100);
+
+        const item = document.createElement("div");
+        item.className = "table-item";
+
+        const left = document.createElement("div");
+        left.className = "table-left";
+        left.innerHTML = `
+          <div class="table-k">Giá gốc</div>
+          <div class="table-v">${formatCurrency(price)}</div>
+        `;
+
+        const right = document.createElement("div");
+        right.className = "table-right";
+        right.innerHTML = `
+          <div class="table-k">Sau giảm ${selectedDiscount}%</div>
+          <div class="table-v">${formatCurrency(discounted)}</div>
+        `;
+
+        item.appendChild(left);
+        item.appendChild(right);
+        rangeTable.appendChild(item);
+      }
     }
 
     function buildWheel() {
@@ -838,7 +984,7 @@
       }, 10);
     }
 
-    function closeModal() {
+    function closeModalFunc() {
       pickerModal.classList.remove("show");
       pickerModal.setAttribute("aria-hidden", "true");
     }
@@ -848,13 +994,16 @@
       updateSummary();
     });
 
+    tabQuickBtn.addEventListener("click", () => setActiveTab("quick"));
+    tabTableBtn.addEventListener("click", () => setActiveTab("table"));
+
     openPickerBtn.addEventListener("click", openModal);
-    closePicker.addEventListener("click", closeModal);
+    closePicker.addEventListener("click", closeModalFunc);
 
     confirmPicker.addEventListener("click", () => {
       selectedDiscount = tempDiscount;
       updateSummary();
-      closeModal();
+      closeModalFunc();
     });
 
     wheel.addEventListener("scroll", () => {
@@ -875,11 +1024,18 @@
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && pickerModal.classList.contains("show")) {
-        closeModal();
+        closeModalFunc();
       }
     });
 
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      });
+    }
+
     buildWheel();
+    setActiveTab("quick");
     updateSummary();
   </script>
 </body>
