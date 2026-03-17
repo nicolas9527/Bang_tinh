@@ -2,43 +2,43 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
-  />
-  <title>Tính nhanh giá giảm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>Tính nhanh giá giảm Luxury</title>
 
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="theme-color" content="#f8fbff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Giảm giá" />
 
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icon.png.PNG" />
-
   <style>
     :root{
+      --bg:
+        radial-gradient(circle at 0% 0%, rgba(147,197,253,.35), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(196,181,253,.22), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(103,232,249,.16), transparent 24%),
+        linear-gradient(180deg, #fbfdff 0%, #f3f8ff 52%, #f8fbff 100%);
       --text:#0f172a;
-      --muted:#64748b;
+      --text-soft:#64748b;
+      --text-faint:#94a3b8;
+      --line:rgba(15,23,42,.08);
+      --white:rgba(255,255,255,.92);
       --blue:#2563eb;
-      --blue-2:#60a5fa;
+      --blue-2:#3b82f6;
       --cyan:#06b6d4;
       --green:#16a34a;
-      --red:#e11d48;
+      --red:#dc2626;
       --orange:#ea580c;
-      --stroke:rgba(15,23,42,.08);
-      --shadow:0 24px 70px rgba(15,23,42,.10);
-      --shadow-soft:0 12px 30px rgba(15,23,42,.07);
-      --wheel-row:58px;
+      --shadow-xs:0 4px 10px rgba(15,23,42,.04);
+      --shadow-sm:0 10px 24px rgba(15,23,42,.06);
+      --shadow-md:0 18px 40px rgba(37,99,235,.10);
+      --shadow-lg:0 30px 60px rgba(15,23,42,.12);
+      --radius-xl:32px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --wheel-row:56px;
       --wheel-visible:5;
-      --wheel-height: calc(var(--wheel-row) * var(--wheel-visible));
-      --main-gradient:
-        radial-gradient(circle at top right, rgba(96,165,250,.18), transparent 26%),
-        linear-gradient(135deg, #eaf3ff, #c4dcff 45%, #2563eb 125%);
-      --body-bg:
-        radial-gradient(circle at 10% 10%, rgba(147,197,253,.30), transparent 28%),
-        radial-gradient(circle at 90% 0%, rgba(34,211,238,.12), transparent 22%),
-        linear-gradient(180deg, #f8fbff 0%, #eef5fd 48%, #f9fbff 100%);
+      --wheel-height:calc(var(--wheel-row) * var(--wheel-visible));
+      --ease:cubic-bezier(.22,1,.36,1);
     }
 
     *{
@@ -50,17 +50,16 @@
       margin:0;
       padding:0;
       min-height:100%;
-      width:100%;
       overflow-x:hidden;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;
       color:var(--text);
-      background:var(--body-bg);
+      background:var(--bg);
       background-attachment:fixed;
     }
 
     body{
-      padding:16px 14px 24px;
       position:relative;
+      padding:18px 16px 36px;
     }
 
     body::before{
@@ -70,61 +69,76 @@
       pointer-events:none;
       background:
         linear-gradient(rgba(255,255,255,.20), rgba(255,255,255,0)),
-        radial-gradient(circle at center, transparent 0 40%, rgba(255,255,255,.03) 100%);
+        radial-gradient(circle at center, transparent 0 45%, rgba(255,255,255,.04) 100%);
+    }
+
+    .bg-orb{
+      position:fixed;
+      border-radius:999px;
+      filter:blur(60px);
+      pointer-events:none;
+      z-index:0;
+      opacity:.55;
+    }
+
+    .orb-1{
+      width:220px;
+      height:220px;
+      top:-40px;
+      left:-50px;
+      background:rgba(96,165,250,.25);
+    }
+
+    .orb-2{
+      width:260px;
+      height:260px;
+      top:20%;
+      right:-90px;
+      background:rgba(139,92,246,.18);
+    }
+
+    .orb-3{
+      width:220px;
+      height:220px;
+      bottom:-30px;
+      left:20%;
+      background:rgba(34,211,238,.16);
     }
 
     .wrap{
       max-width:500px;
-      width:100%;
       margin:0 auto;
       position:relative;
       z-index:1;
+      animation:pageIn .45s var(--ease);
     }
 
-    .glow{
-      position:absolute;
-      width:160px;
-      height:160px;
-      border-radius:50%;
-      filter:blur(48px);
-      opacity:.24;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    .glow.g1{
-      top:36px;
-      left:-34px;
-      background:rgba(37,99,235,.18);
-    }
-
-    .glow.g2{
-      top:150px;
-      right:-40px;
-      background:rgba(6,182,212,.12);
+    @keyframes pageIn{
+      from{opacity:0; transform:translateY(18px);}
+      to{opacity:1; transform:translateY(0);}
     }
 
     .hero{
-      position:relative;
-      padding:6px 4px 14px;
-      z-index:1;
+      text-align:center;
+      margin-bottom:22px;
     }
 
     .badge{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:10px 14px;
+      padding:8px 14px;
       border-radius:999px;
-      color:var(--text);
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.92);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:var(--shadow-xs);
+      color:var(--blue);
       font-size:13px;
       font-weight:800;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.82);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      box-shadow:var(--shadow-soft);
-      margin-bottom:12px;
+      letter-spacing:-.2px;
+      margin-bottom:14px;
     }
 
     .badge-dot{
@@ -132,36 +146,42 @@
       height:8px;
       border-radius:50%;
       background:linear-gradient(180deg, var(--blue-2), var(--cyan));
-      box-shadow:0 0 0 5px rgba(96,165,250,.12);
+      box-shadow:0 0 0 5px rgba(59,130,246,.10);
     }
 
     .title{
-      margin:0;
-      font-size:34px;
-      line-height:1.04;
+      margin:0 0 8px;
+      font-size:36px;
+      line-height:1.05;
       font-weight:900;
-      letter-spacing:-1px;
+      letter-spacing:-1.2px;
       color:var(--text);
-      text-shadow:0 6px 20px rgba(37,99,235,.05);
+    }
+
+    .subtitle{
+      margin:0;
+      font-size:15px;
+      line-height:1.55;
+      color:var(--text-soft);
     }
 
     .shell{
       position:relative;
-      border-radius:34px;
+      border-radius:calc(var(--radius-xl) + 2px);
       padding:1px;
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.55));
-      box-shadow:var(--shadow);
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.45));
+      box-shadow:var(--shadow-lg);
     }
 
     .card{
       position:relative;
       overflow:hidden;
-      border-radius:33px;
-      padding:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72));
-      backdrop-filter:blur(22px) saturate(130%);
-      -webkit-backdrop-filter:blur(22px) saturate(130%);
+      border-radius:var(--radius-xl);
+      padding:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.70));
       border:1px solid rgba(255,255,255,.75);
+      backdrop-filter:blur(22px) saturate(135%);
+      -webkit-backdrop-filter:blur(22px) saturate(135%);
     }
 
     .card::before{
@@ -170,8 +190,8 @@
       inset:0;
       pointer-events:none;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,0) 20%),
-        radial-gradient(circle at top right, rgba(96,165,250,.10), transparent 28%);
+        linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 20%),
+        radial-gradient(circle at top right, rgba(96,165,250,.12), transparent 28%);
     }
 
     .section{
@@ -182,79 +202,84 @@
 
     .label{
       display:block;
-      margin-bottom:10px;
-      padding-left:2px;
-      font-size:13px;
+      padding-left:4px;
+      margin-bottom:9px;
+      font-size:12px;
       font-weight:800;
-      color:var(--text);
-      opacity:.9;
+      color:var(--text-soft);
+      text-transform:uppercase;
+      letter-spacing:.55px;
     }
 
     .input-wrap,
     .picker-button{
       position:relative;
       width:100%;
-      border-radius:22px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,250,255,.94));
+      border-radius:var(--radius-lg);
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.94));
+      border:1px solid var(--line);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.90),
-        0 10px 22px rgba(15,23,42,.05);
-      transition:.2s ease;
+        inset 0 1px 0 rgba(255,255,255,.95),
+        var(--shadow-xs);
+      transition:
+        transform .16s var(--ease),
+        box-shadow .18s var(--ease),
+        border-color .18s var(--ease);
     }
 
     .input-wrap:focus-within,
     .picker-button:focus{
       outline:none;
-      border-color:rgba(37,99,235,.24);
+      border-color:rgba(37,99,235,.22);
       box-shadow:
-        0 0 0 4px rgba(37,99,235,.10),
-        0 12px 24px rgba(15,23,42,.06),
-        inset 0 1px 0 rgba(255,255,255,.92);
+        0 0 0 4px rgba(37,99,235,.08),
+        0 10px 24px rgba(37,99,235,.08),
+        inset 0 1px 0 rgba(255,255,255,.95);
+      transform:translateY(-1px);
     }
 
     .money-icon{
       position:absolute;
-      left:15px;
+      left:18px;
       top:50%;
       transform:translateY(-50%);
-      width:30px;
-      height:30px;
+      width:34px;
+      height:34px;
       border-radius:12px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:14px;
-      font-weight:900;
+      background:linear-gradient(180deg, rgba(37,99,235,.12), rgba(37,99,235,.07));
       color:var(--blue);
-      background:linear-gradient(180deg, rgba(37,99,235,.14), rgba(37,99,235,.08));
+      font-size:16px;
+      font-weight:900;
       border:1px solid rgba(37,99,235,.10);
     }
 
     .input{
       width:100%;
-      height:64px;
+      height:72px;
       border:none;
       outline:none;
       background:transparent;
       color:var(--text);
-      font-size:26px;
+      font-size:30px;
       font-weight:900;
-      letter-spacing:-.4px;
-      padding:0 54px 0 56px;
-      border-radius:22px;
+      letter-spacing:-.8px;
+      padding:0 58px 0 64px;
+      border-radius:var(--radius-lg);
     }
 
     .input::placeholder{
-      color:var(--muted);
+      color:#cbd5e1;
       font-weight:700;
     }
 
     .clear-btn{
       position:absolute;
-      right:12px;
+      right:14px;
       top:50%;
-      transform:translateY(-50%) scale(.9);
+      transform:translateY(-50%) scale(.92);
       width:34px;
       height:34px;
       border:none;
@@ -262,16 +287,15 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:16px;
+      background:rgba(15,23,42,.06);
+      border:1px solid rgba(15,23,42,.08);
+      color:var(--text);
+      font-size:17px;
       font-weight:900;
       cursor:pointer;
-      color:var(--text);
       opacity:0;
       pointer-events:none;
-      background:linear-gradient(180deg, rgba(15,23,42,.07), rgba(15,23,42,.04));
-      border:1px solid rgba(15,23,42,.08);
-      transition:opacity .18s ease, transform .18s ease;
-      box-shadow:0 8px 16px rgba(15,23,42,.05);
+      transition:opacity .15s ease, transform .15s ease;
     }
 
     .clear-btn.show{
@@ -281,118 +305,232 @@
     }
 
     .clear-btn:active{
-      transform:translateY(-50%) scale(.96);
+      transform:translateY(-50%) scale(.95);
     }
 
     .picker-button{
-      min-height:64px;
-      padding:0 16px;
+      min-height:70px;
+      padding:0 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       cursor:pointer;
+      touch-action:manipulation;
+    }
+
+    .picker-button:active{
+      transform:scale(.992);
     }
 
     .picker-left{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       min-width:0;
     }
 
     .picker-icon{
-      width:32px;
-      height:32px;
-      border-radius:12px;
+      width:38px;
+      height:38px;
+      border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:15px;
+      background:linear-gradient(180deg, rgba(234,88,12,.16), rgba(234,88,12,.10));
+      border:1px solid rgba(234,88,12,.12);
+      color:var(--orange);
+      font-size:16px;
       font-weight:900;
-      color:#fff7ed;
-      background:linear-gradient(180deg, rgba(234,88,12,.78), rgba(234,88,12,.54));
-      border:1px solid rgba(234,88,12,.16);
-      box-shadow:0 8px 18px rgba(234,88,12,.10);
+      box-shadow:0 8px 18px rgba(234,88,12,.08);
     }
 
     .picker-title{
-      font-size:11px;
-      color:var(--muted);
-      font-weight:800;
-      margin-bottom:2px;
+      font-size:12px;
+      color:var(--text-soft);
+      font-weight:700;
+      margin-bottom:3px;
       text-align:left;
     }
 
     .picker-value{
-      font-size:22px;
-      font-weight:900;
+      font-size:24px;
       color:var(--text);
+      font-weight:900;
       line-height:1;
       text-align:left;
+      letter-spacing:-.4px;
     }
 
     .picker-arrow{
-      color:var(--muted);
+      color:#94a3b8;
       font-size:24px;
       line-height:1;
     }
 
     .segment{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-      padding:6px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(245,249,255,.92));
-      border:1px solid var(--stroke);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.92);
       position:relative;
-      z-index:1;
+      display:flex;
+      background:rgba(118,118,128,.08);
+      border-radius:16px;
+      padding:4px;
+      margin:24px 0 18px;
+      border:1px solid rgba(15,23,42,.04);
+      isolation:isolate;
+    }
+
+    .segment-indicator{
+      position:absolute;
+      top:4px;
+      bottom:4px;
+      left:4px;
+      width:calc(50% - 4px);
+      border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,1), rgba(250,252,255,.96));
+      box-shadow:
+        0 6px 14px rgba(15,23,42,.10),
+        0 1px 0 rgba(255,255,255,.95) inset;
+      transition:transform .34s cubic-bezier(.25,1,.5,1);
+      z-index:0;
     }
 
     .segment-btn{
-      height:48px;
+      flex:1;
+      position:relative;
+      z-index:1;
+      height:42px;
       border:none;
-      border-radius:15px;
       background:transparent;
-      color:var(--muted);
-      font-size:14px;
-      font-weight:900;
+      color:var(--text-soft);
+      font-size:15px;
+      font-weight:800;
+      border-radius:12px;
       cursor:pointer;
-      transition:.18s ease;
+      transition:color .22s ease, transform .14s ease;
+      touch-action:manipulation;
     }
 
     .segment-btn.active{
-      color:#fff;
-      background:linear-gradient(180deg, var(--blue), #1d4ed8);
-      box-shadow:
-        0 10px 22px rgba(37,99,235,.18),
-        inset 0 1px 0 rgba(255,255,255,.18);
+      color:var(--text);
+    }
+
+    .segment-btn:active{
+      transform:scale(.985);
+    }
+
+    .panels{
+      position:relative;
+      min-height:520px;
     }
 
     .panel{
-      display:none;
-      position:relative;
-      z-index:1;
+      position:absolute;
+      inset:0;
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+      transition:
+        opacity .26s ease,
+        transform .32s var(--ease);
     }
 
     .panel.active{
-      display:block;
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0);
+      z-index:1;
     }
 
-    .result-card,
-    .list-card{
-      margin-top:18px;
-      border-radius:26px;
+    .result-main{
+      position:relative;
+      overflow:hidden;
+      border-radius:28px;
+      padding:24px 20px;
+      margin-bottom:16px;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 22%),
+        linear-gradient(135deg, #101828 0%, #172554 55%, #2563eb 120%);
+      box-shadow:0 22px 42px rgba(15,23,42,.20);
+    }
+
+    .result-main::before{
+      content:"";
+      position:absolute;
+      top:-40px;
+      right:-34px;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      background:rgba(96,165,250,.22);
+      filter:blur(40px);
+      pointer-events:none;
+    }
+
+    .result-main-label{
+      position:relative;
+      z-index:1;
+      font-size:12px;
+      color:#bfdbfe;
+      margin-bottom:8px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      opacity:.92;
+    }
+
+    .result-main-value{
+      position:relative;
+      z-index:1;
+      font-size:42px;
+      font-weight:900;
+      line-height:1.06;
+      letter-spacing:-1.2px;
+      color:#fff;
+      word-break:break-word;
+      text-shadow:0 8px 24px rgba(0,0,0,.14);
+      transition:opacity .16s ease, transform .16s ease;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:24px;
+    }
+
+    .mini{
+      border-radius:18px;
       padding:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.90), rgba(250,252,255,.84));
-      border:1px solid var(--stroke);
-      box-shadow:var(--shadow-soft);
+      background:rgba(255,255,255,.94);
+      border:1px solid rgba(255,255,255,.88);
+      box-shadow:var(--shadow-xs);
     }
 
-    .result-top,
+    .mini.green{
+      background:linear-gradient(180deg, rgba(240,253,244,.96), rgba(255,255,255,.95));
+    }
+
+    .mini.red{
+      background:linear-gradient(180deg, rgba(255,241,242,.96), rgba(255,255,255,.95));
+    }
+
+    .mini-label{
+      font-size:13px;
+      color:var(--text-soft);
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .mini-value{
+      font-size:23px;
+      font-weight:900;
+      letter-spacing:-.6px;
+      transition:opacity .16s ease, transform .16s ease;
+    }
+
+    .mini.green .mini-value{ color:var(--green); }
+    .mini.red .mini-value{ color:var(--red); }
+
     .list-head{
       display:flex;
       align-items:center;
@@ -401,214 +539,145 @@
       margin-bottom:14px;
     }
 
-    .result-title,
     .list-title{
-      margin:0;
-      font-size:15px;
+      font-size:17px;
       font-weight:900;
+      margin:0;
       color:var(--text);
-      letter-spacing:-.2px;
+      letter-spacing:-.3px;
     }
 
     .selected-tag{
-      padding:8px 12px;
-      border-radius:999px;
-      white-space:nowrap;
-      font-size:12px;
-      font-weight:900;
+      background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(37,99,235,.05));
       color:var(--blue);
-      background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(37,99,235,.06));
-      border:1px solid rgba(37,99,235,.10);
-    }
-
-    .result-main{
-      position:relative;
-      overflow:hidden;
-      border-radius:28px;
-      padding:22px 18px;
-      margin-bottom:12px;
-      background:var(--main-gradient);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.40),
-        0 20px 38px rgba(37,99,235,.14);
-    }
-
-    .result-main::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 35%),
-        radial-gradient(circle at top right, rgba(255,255,255,.26), transparent 26%);
-      pointer-events:none;
-    }
-
-    .result-main::after{
-      content:"";
-      position:absolute;
-      width:160px;
-      height:160px;
-      border-radius:50%;
-      right:-36px;
-      top:-50px;
-      background:rgba(255,255,255,.18);
-      filter:blur(8px);
-    }
-
-    .result-main-label{
-      position:relative;
-      z-index:1;
+      border-radius:999px;
+      padding:7px 12px;
       font-size:12px;
-      color:rgba(15,23,42,.72);
-      font-weight:900;
-      margin-bottom:8px;
-      letter-spacing:.2px;
-    }
-
-    .result-main-value{
-      position:relative;
-      z-index:1;
-      font-size:42px;
-      line-height:1.02;
-      font-weight:900;
-      letter-spacing:-1.2px;
-      color:#0b1220;
-      word-break:break-word;
-      text-shadow:0 2px 0 rgba(255,255,255,.26);
-    }
-
-    .mini-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .mini{
-      border-radius:20px;
-      padding:14px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,250,255,.86));
-      box-shadow:0 8px 18px rgba(15,23,42,.04);
-    }
-
-    .mini.green{
-      background:linear-gradient(180deg, rgba(22,163,74,.10), rgba(255,255,255,.92));
-      border-color:rgba(22,163,74,.12);
-    }
-
-    .mini.red{
-      background:linear-gradient(180deg, rgba(225,29,72,.08), rgba(255,255,255,.92));
-      border-color:rgba(225,29,72,.10);
-    }
-
-    .mini-label{
-      font-size:12px;
-      color:var(--muted);
       font-weight:800;
-      margin-bottom:8px;
+      border:1px solid rgba(37,99,235,.08);
     }
-
-    .mini-value{
-      font-size:22px;
-      line-height:1.1;
-      font-weight:900;
-      letter-spacing:-.4px;
-      word-break:break-word;
-    }
-
-    .mini.green .mini-value{ color:var(--green); }
-    .mini.red .mini-value{ color:var(--red); }
 
     .price-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:10px;
+      gap:12px;
     }
 
     .price-item{
-      padding:14px;
+      padding:16px;
       border-radius:18px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,250,255,.86));
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      background:rgba(255,255,255,.94);
+      border:1px solid #e7edf7;
       cursor:pointer;
-      transition:.18s ease;
-      box-shadow:0 8px 16px rgba(15,23,42,.04);
-      min-width:0;
+      transition:
+        transform .16s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+      box-shadow:var(--shadow-xs);
+      touch-action:manipulation;
+    }
+
+    .price-item:active{
+      transform:scale(.97);
     }
 
     .price-item.active{
-      transform:translateY(-1px);
-      border-color:rgba(37,99,235,.18);
-      background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(255,255,255,.90));
+      background:linear-gradient(180deg, #f8fbff, #f1f7ff);
+      border-color:#93c5fd;
       box-shadow:
-        0 12px 24px rgba(37,99,235,.10),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 0 0 1px #93c5fd,
+        0 10px 24px rgba(37,99,235,.08);
     }
 
     .price-item .p{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
+      font-size:13px;
+      color:var(--text-soft);
+      font-weight:700;
+      margin-bottom:5px;
     }
 
     .price-item .v{
       font-size:18px;
       font-weight:900;
       color:var(--text);
-      line-height:1.15;
-      letter-spacing:-.3px;
-      word-break:break-word;
+      letter-spacing:-.5px;
     }
 
     .table-wrap{
       display:grid;
-      gap:10px;
-      max-height:500px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+      max-height:540px;
       overflow:auto;
-      padding-right:2px;
-      overscroll-behavior:contain;
+      padding-right:4px;
+      scrollbar-width:thin;
+      align-content:start;
     }
 
     .table-wrap::-webkit-scrollbar{
-      width:6px;
+      width:4px;
     }
 
     .table-wrap::-webkit-scrollbar-thumb{
-      background:rgba(15,23,42,.10);
-      border-radius:999px;
+      background:#cbd5e1;
+      border-radius:4px;
     }
 
     .table-item{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      align-items:center;
-      padding:13px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      background:rgba(255,255,255,.94);
       border-radius:18px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,250,255,.86));
+      padding:16px;
+      border:1px solid #edf2f8;
+      box-shadow:var(--shadow-xs);
+      min-width:0;
+    }
+
+    .table-block{
       min-width:0;
     }
 
     .table-k{
       font-size:11px;
-      color:var(--muted);
-      font-weight:800;
-      margin-bottom:5px;
+      color:var(--text-soft);
+      font-weight:700;
+      margin-bottom:4px;
       text-transform:uppercase;
-      letter-spacing:.4px;
+      letter-spacing:.55px;
     }
 
     .table-v{
       font-size:18px;
       font-weight:900;
       color:var(--text);
-      line-height:1.12;
-      letter-spacing:-.3px;
+      letter-spacing:-.4px;
+      line-height:1.15;
       word-break:break-word;
+    }
+
+    .table-v.blue{
+      color:var(--blue);
+    }
+
+    .footer-note,.install-tip{
+      text-align:center;
+      font-size:13px;
+      color:var(--text-faint);
+      font-weight:600;
+      margin-top:24px;
+      line-height:1.55;
+    }
+
+    .install-tip{
+      background:rgba(255,255,255,.55);
+      padding:12px;
+      border-radius:14px;
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.7);
     }
 
     .modal{
@@ -625,178 +694,131 @@
     .backdrop{
       position:absolute;
       inset:0;
-      background:rgba(15,23,42,.18);
+      background:rgba(15,23,42,.28);
       opacity:0;
-      transition:opacity .22s ease;
-      backdrop-filter:blur(8px);
-      -webkit-backdrop-filter:blur(8px);
+      transition:opacity .28s ease;
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
     }
 
     .sheet{
       position:absolute;
-      left:12px;
-      right:12px;
-      bottom:12px;
-      overflow:hidden;
-      border-radius:30px;
-      border:1px solid rgba(255,255,255,.85);
-      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(245,249,255,.96));
-      box-shadow:0 26px 60px rgba(15,23,42,.14);
-      transform:translateY(28px);
-      opacity:0;
-      transition:transform .22s ease, opacity .22s ease;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(180deg, #fbfdff, #f4f8ff);
+      border-radius:32px 32px 0 0;
+      box-shadow:0 -16px 44px rgba(15,23,42,.12);
+      transform:translateY(100%);
+      transition:transform .34s var(--ease);
+      padding-bottom:env(safe-area-inset-bottom);
+      border-top:1px solid rgba(255,255,255,.9);
     }
 
-    .modal.show .backdrop{
-      opacity:1;
-    }
-
-    .modal.show .sheet{
-      transform:translateY(0);
-      opacity:1;
-    }
+    .modal.show .backdrop{ opacity:1; }
+    .modal.show .sheet{ transform:translateY(0); }
 
     .sheet-grabber{
-      width:50px;
+      width:42px;
       height:5px;
       border-radius:999px;
-      background:rgba(15,23,42,.12);
-      margin:10px auto 4px;
+      background:#cbd5e1;
+      margin:12px auto 18px;
     }
 
     .sheet-head{
       text-align:center;
-      font-size:22px;
       font-weight:900;
+      font-size:22px;
+      margin-bottom:4px;
       color:var(--text);
-      padding:8px 16px 6px;
-      letter-spacing:-.4px;
+    }
+
+    .sheet-sub{
+      text-align:center;
+      color:var(--text-soft);
+      font-size:14px;
+      margin-bottom:24px;
     }
 
     .wheel-wrap{
       position:relative;
       height:var(--wheel-height);
-      margin:4px 14px 10px;
+      margin:0 20px 24px;
       overflow:hidden;
+      background:#ffffff;
       border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,250,255,.96));
-      border:1px solid var(--stroke);
-      perspective:1000px;
-      transform-style:preserve-3d;
+      box-shadow:inset 0 2px 10px rgba(0,0,0,0.02), var(--shadow-xs);
+      border:1px solid rgba(15,23,42,.05);
     }
 
-    .wheel-fade-top,
-    .wheel-fade-bottom{
+    .wheel-fade-top,.wheel-fade-bottom{
       position:absolute;
       left:0;
       right:0;
-      height:100px;
-      z-index:4;
+      height:86px;
+      z-index:3;
       pointer-events:none;
     }
 
     .wheel-fade-top{
       top:0;
-      background:linear-gradient(to bottom, rgba(255,255,255,.98), rgba(255,255,255,0));
+      background:linear-gradient(to bottom, #ffffff, rgba(255,255,255,0));
     }
 
     .wheel-fade-bottom{
       bottom:0;
-      background:linear-gradient(to top, rgba(255,255,255,.98), rgba(255,255,255,0));
+      background:linear-gradient(to top, #ffffff, rgba(255,255,255,0));
     }
 
     .wheel-center{
       position:absolute;
-      left:10px;
-      right:10px;
+      left:16px;
+      right:16px;
       top:50%;
       height:var(--wheel-row);
       transform:translateY(-50%);
-      border-radius:18px;
-      background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(6,182,212,.06));
-      border:1px solid rgba(37,99,235,.10);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        0 10px 24px rgba(37,99,235,.08);
-      z-index:3;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(37,99,235,.08), rgba(37,99,235,.04));
+      border:1px solid rgba(37,99,235,.08);
+      z-index:2;
       pointer-events:none;
     }
 
     .wheel{
       position:relative;
-      z-index:2;
+      z-index:1;
       height:100%;
       overflow-y:auto;
-      overflow-x:hidden;
-      padding:calc(var(--wheel-row) * 2) 0;
+      overscroll-behavior:contain;
       scroll-snap-type:y mandatory;
+      padding:calc(var(--wheel-row) * 2) 0;
       scrollbar-width:none;
       -webkit-overflow-scrolling:touch;
-      overscroll-behavior-y:contain;
-      touch-action:pan-y;
     }
 
-    .wheel::-webkit-scrollbar{
-      display:none;
-    }
+    .wheel::-webkit-scrollbar{ display:none; }
 
     .wheel-item{
       height:var(--wheel-row);
       display:flex;
       align-items:center;
       justify-content:center;
-      scroll-snap-align:center;
-      user-select:none;
       font-size:24px;
-      font-weight:800;
-      color:var(--muted);
-      letter-spacing:-.3px;
-      opacity:.18;
-      transform:translateZ(0) scale(.8);
-      filter:blur(.5px);
-      transition:
-        transform .14s cubic-bezier(.2,.8,.2,1),
-        opacity .14s ease,
-        color .14s ease,
-        filter .14s ease;
-      will-change:transform, opacity, filter;
+      color:#cbd5e1;
+      font-weight:700;
+      scroll-snap-align:center;
+      transition:all .18s ease;
     }
 
     .wheel-item.active{
-      color:var(--text);
-      opacity:1;
-      transform:translateZ(26px) scale(1);
-      filter:none;
-    }
-
-    .wheel-wrap.shake-soft .wheel-center{
-      animation:wheelShakeSoft .16s ease;
-    }
-
-    .wheel-wrap.shake-strong .wheel-center{
-      animation:wheelShakeStrong .22s ease;
-    }
-
-    @keyframes wheelShakeSoft{
-      0% { transform:translateY(-50%) translateX(0); }
-      30% { transform:translateY(-50%) translateX(-1px); }
-      60% { transform:translateY(-50%) translateX(1px); }
-      100% { transform:translateY(-50%) translateX(0); }
-    }
-
-    @keyframes wheelShakeStrong{
-      0% { transform:translateY(-50%) translateX(0); }
-      20% { transform:translateY(-50%) translateX(-3px); }
-      40% { transform:translateY(-50%) translateX(3px); }
-      65% { transform:translateY(-50%) translateX(-2px); }
-      85% { transform:translateY(-50%) translateX(1px); }
-      100% { transform:translateY(-50%) translateX(0); }
+      color:var(--blue);
+      font-size:32px;
+      font-weight:900;
     }
 
     .sheet-actions{
-      padding:10px 16px calc(16px + env(safe-area-inset-bottom));
-      border-top:1px solid var(--stroke);
-      background:rgba(255,255,255,.55);
+      padding:0 20px 20px;
     }
 
     .confirm-btn{
@@ -804,70 +826,73 @@
       height:58px;
       border:none;
       border-radius:18px;
-      cursor:pointer;
+      background:linear-gradient(180deg, var(--blue), #1d4ed8);
       color:#fff;
       font-size:18px;
-      font-weight:900;
-      letter-spacing:-.2px;
-      background:linear-gradient(180deg, var(--blue), #1d4ed8);
-      box-shadow:
-        0 16px 30px rgba(37,99,235,.18),
-        inset 0 1px 0 rgba(255,255,255,.18);
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 10px 26px rgba(37,99,235,.22);
+      transition:transform .16s ease, filter .16s ease;
+      touch-action:manipulation;
     }
 
     .confirm-btn:active{
-      transform:scale(.995);
+      transform:scale(.97);
+      filter:brightness(.98);
     }
 
     @media (max-width:390px){
-      .title{ font-size:30px; }
-      .result-main-value{ font-size:36px; }
-      .mini-value{ font-size:19px; }
-      .price-item .v,
-      .table-v{ font-size:16px; }
-      .input{ font-size:23px; }
+      .title{ font-size:29px; }
+      .subtitle{ font-size:14px; }
+      .input{ font-size:28px; height:66px; }
+      .result-main-value{ font-size:35px; }
+      .panels{ min-height:500px; }
+      .table-wrap{
+        gap:10px;
+      }
+      .table-item{
+        padding:14px;
+      }
+      .table-v{
+        font-size:16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="glow g1"></div>
-    <div class="glow g2"></div>
 
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <div class="wrap">
     <div class="hero">
       <div class="badge">
         <span class="badge-dot"></span>
-        Luxury
+        Luxury Edition
       </div>
-      <h1 class="title">Tính giá giảm</h1>
+      <h1 class="title">Giảm giá trong 1 chạm</h1>
+      <p class="subtitle">Nhập giá gốc, chọn mức giảm và nhận kết quả tức thì.</p>
     </div>
 
     <div class="shell">
       <div class="card">
         <div class="section">
-          <label class="label" for="originalPrice">Giá gốc</label>
+          <label class="label" for="originalPrice">Giá Gốc</label>
           <div class="input-wrap">
             <div class="money-icon">₫</div>
-            <input
-              id="originalPrice"
-              class="input"
-              type="text"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              placeholder="Nhập giá"
-              autocomplete="off"
-            />
+            <input id="originalPrice" class="input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" autocomplete="off" />
             <button class="clear-btn" id="clearPriceBtn" type="button" aria-label="Xoá nhanh">×</button>
           </div>
         </div>
 
         <div class="section">
-          <label class="label">Mức giảm</label>
+          <label class="label">Mức Giảm</label>
           <button class="picker-button" id="openPicker" type="button">
             <div class="picker-left">
               <div class="picker-icon">%</div>
-              <div>
-                <div class="picker-title">Đang chọn</div>
+              <div class="picker-text">
+                <div class="picker-title">Đang áp dụng</div>
                 <div class="picker-value" id="selectedDiscountText">20%</div>
               </div>
             </div>
@@ -876,62 +901,56 @@
         </div>
 
         <div class="segment">
-          <button class="segment-btn active" id="tabQuickBtn" type="button">Nhanh</button>
-          <button class="segment-btn" id="tabTableBtn" type="button">Bảng</button>
+          <div class="segment-indicator" id="segmentIndicator"></div>
+          <button class="segment-btn active" id="tabQuickBtn" type="button">Kết quả nhanh</button>
+          <button class="segment-btn" id="tabTableBtn" type="button">Bảng giá sẵn</button>
         </div>
 
-        <div class="panel active" id="panelQuick">
-          <div class="result-card">
-            <div class="result-top">
-              <h2 class="result-title">Kết quả</h2>
-              <div class="selected-tag" id="selectedTag">Giảm 20%</div>
-            </div>
-
+        <div class="panels">
+          <div class="panel active" id="panelQuick">
             <div class="result-main">
-              <div class="result-main-label">Giá sau giảm</div>
+              <div class="result-main-label">Giá Sau Khi Giảm</div>
               <div class="result-main-value" id="finalPrice">0 ₫</div>
             </div>
 
             <div class="mini-grid">
               <div class="mini green">
-                <div class="mini-label">Tiền giảm</div>
+                <div class="mini-label">Tiết kiệm được</div>
                 <div class="mini-value" id="discountAmount">0 ₫</div>
               </div>
               <div class="mini red">
-                <div class="mini-label">Còn lại</div>
+                <div class="mini-label">Phần trăm còn lại</div>
                 <div class="mini-value" id="remainPercent">80%</div>
               </div>
             </div>
 
-            <div class="list-card">
-              <div class="list-head">
-                <h3 class="list-title">Mức khác</h3>
-                <div class="selected-tag">Chọn nhanh</div>
-              </div>
-              <div class="price-grid" id="priceGrid"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel" id="panelTable">
-          <div class="list-card">
             <div class="list-head">
-              <h3 class="list-title">20k–100k</h3>
+              <h3 class="list-title">Mức giảm phổ biến</h3>
+            </div>
+            <div class="price-grid" id="priceGrid"></div>
+          </div>
+
+          <div class="panel" id="panelTable">
+            <div class="list-head">
+              <h3 class="list-title">Từ 20k – 100k</h3>
               <div class="selected-tag" id="tableTag">Giảm 20%</div>
             </div>
             <div class="table-wrap" id="rangeTable"></div>
           </div>
         </div>
+
+        <div class="footer-note">Ứng dụng hoạt động mượt mà không cần mạng.</div>
+        <div class="install-tip">Gợi ý: Mở bằng Safari → Chia sẻ → Thêm vào MH chính để dùng như app thật.</div>
       </div>
     </div>
   </div>
 
   <div class="modal" id="pickerModal" aria-hidden="true">
     <div class="backdrop" id="closePicker"></div>
-
     <div class="sheet">
       <div class="sheet-grabber"></div>
-      <div class="sheet-head">Mức giảm</div>
+      <div class="sheet-head">Mức Giảm Giá</div>
+      <div class="sheet-sub">Vuốt lên xuống để chọn phần trăm</div>
 
       <div class="wheel-wrap">
         <div class="wheel-fade-top"></div>
@@ -941,7 +960,7 @@
       </div>
 
       <div class="sheet-actions">
-        <button class="confirm-btn" id="confirmPicker" type="button">Xác nhận</button>
+        <button class="confirm-btn" id="confirmPicker" type="button">Áp dụng ngay</button>
       </div>
     </div>
   </div>
@@ -949,9 +968,7 @@
   <script>
     const originalPriceInput = document.getElementById("originalPrice");
     const clearPriceBtn = document.getElementById("clearPriceBtn");
-
     const selectedDiscountText = document.getElementById("selectedDiscountText");
-    const selectedTag = document.getElementById("selectedTag");
     const tableTag = document.getElementById("tableTag");
     const discountAmountEl = document.getElementById("discountAmount");
     const finalPriceEl = document.getElementById("finalPrice");
@@ -963,24 +980,20 @@
     const tabTableBtn = document.getElementById("tabTableBtn");
     const panelQuick = document.getElementById("panelQuick");
     const panelTable = document.getElementById("panelTable");
+    const segmentIndicator = document.getElementById("segmentIndicator");
 
     const openPickerBtn = document.getElementById("openPicker");
     const pickerModal = document.getElementById("pickerModal");
     const closePicker = document.getElementById("closePicker");
     const confirmPicker = document.getElementById("confirmPicker");
     const wheel = document.getElementById("wheel");
-    const wheelWrap = document.querySelector(".wheel-wrap");
 
-    const discounts = [20, 25, 30, 35, 40, 45, 50, 55, 60];
+    const discounts = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80];
 
     let selectedDiscount = 20;
     let tempDiscount = 20;
     let wheelScrollTimer = null;
-    let settleTimer = null;
-    let lastHapticValue = tempDiscount;
-    let rafLock = false;
-    let isProgrammaticScroll = false;
-    let programmaticScrollUnlock = null;
+    let activeTab = "quick";
 
     function formatCurrency(number) {
       return new Intl.NumberFormat("vi-VN").format(Math.round(number)) + " ₫";
@@ -1005,11 +1018,30 @@
     }
 
     function setActiveTab(tabName) {
+      if (activeTab === tabName) return;
+
       const isQuick = tabName === "quick";
+      activeTab = tabName;
+
       tabQuickBtn.classList.toggle("active", isQuick);
       tabTableBtn.classList.toggle("active", !isQuick);
+
+      segmentIndicator.style.transform = isQuick ? "translateX(0)" : "translateX(calc(100% + 4px))";
+
       panelQuick.classList.toggle("active", isQuick);
       panelTable.classList.toggle("active", !isQuick);
+    }
+
+    function animateValue(el, value) {
+      el.style.opacity = "0.55";
+      el.style.transform = "translateY(4px)";
+      requestAnimationFrame(() => {
+        el.textContent = value;
+        requestAnimationFrame(() => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      });
     }
 
     function updateSummary() {
@@ -1019,11 +1051,11 @@
       const remainPercent = 100 - selectedDiscount;
 
       selectedDiscountText.textContent = selectedDiscount + "%";
-      selectedTag.textContent = "Giảm " + selectedDiscount + "%";
       tableTag.textContent = "Giảm " + selectedDiscount + "%";
-      discountAmountEl.textContent = formatCurrency(discountAmount);
-      finalPriceEl.textContent = formatCurrency(finalPrice);
-      remainPercentEl.textContent = remainPercent + "%";
+
+      animateValue(finalPriceEl, formatCurrency(finalPrice));
+      animateValue(discountAmountEl, formatCurrency(discountAmount));
+      animateValue(remainPercentEl, remainPercent + "%");
 
       renderPriceGrid(price);
       renderRangeTable();
@@ -1032,30 +1064,23 @@
 
     function renderPriceGrid(price) {
       priceGrid.innerHTML = "";
+      const showDiscounts = [20, 30, 40, 50];
 
-      discounts.forEach(percent => {
+      showDiscounts.forEach(percent => {
         const discounted = price - (price * percent / 100);
-
         const item = document.createElement("div");
         item.className = "price-item" + (percent === selectedDiscount ? " active" : "");
+        item.innerHTML = `
+          <div class="p">Giảm ${percent}%</div>
+          <div class="v">${formatCurrency(discounted)}</div>
+        `;
 
-        const p = document.createElement("div");
-        p.className = "p";
-        p.textContent = "Giảm " + percent + "%";
-
-        const v = document.createElement("div");
-        v.className = "v";
-        v.textContent = formatCurrency(discounted);
-
-        item.appendChild(p);
-        item.appendChild(v);
-
-        item.addEventListener("click", () => {
+        item.addEventListener("pointerdown", (e) => {
+          e.preventDefault();
           selectedDiscount = percent;
           tempDiscount = percent;
-          lastHapticValue = percent;
           updateSummary();
-        });
+        }, { passive: false });
 
         priceGrid.appendChild(item);
       });
@@ -1063,34 +1088,26 @@
 
     function renderRangeTable() {
       rangeTable.innerHTML = "";
-
       for (let price = 20000; price <= 100000; price += 1000) {
         const discounted = price - (price * selectedDiscount / 100);
-
         const item = document.createElement("div");
         item.className = "table-item";
-
-        const left = document.createElement("div");
-        left.innerHTML = `
-          <div class="table-k">Giá gốc</div>
-          <div class="table-v">${formatCurrency(price)}</div>
+        item.innerHTML = `
+          <div class="table-block">
+            <div class="table-k">Giá gốc</div>
+            <div class="table-v">${formatCurrency(price)}</div>
+          </div>
+          <div class="table-block">
+            <div class="table-k">Giảm ${selectedDiscount}%</div>
+            <div class="table-v blue">${formatCurrency(discounted)}</div>
+          </div>
         `;
-
-        const right = document.createElement("div");
-        right.innerHTML = `
-          <div class="table-k">Sau giảm ${selectedDiscount}%</div>
-          <div class="table-v">${formatCurrency(discounted)}</div>
-        `;
-
-        item.appendChild(left);
-        item.appendChild(right);
         rangeTable.appendChild(item);
       }
     }
 
     function buildWheel() {
       wheel.innerHTML = "";
-
       discounts.forEach(percent => {
         const item = document.createElement("div");
         item.className = "wheel-item";
@@ -1098,115 +1115,41 @@
         item.textContent = percent + "%";
         wheel.appendChild(item);
       });
-
       highlightWheel();
     }
 
     function getRowHeight() {
-      return 58;
-    }
-
-    function vibrateTick(strong = false) {
-      if (navigator.vibrate) {
-        navigator.vibrate(strong ? [12] : [7]);
-      }
-    }
-
-    function shakeWheelCenter(strong = false) {
-      wheelWrap.classList.remove("shake-soft", "shake-strong");
-      void wheelWrap.offsetWidth;
-      wheelWrap.classList.add(strong ? "shake-strong" : "shake-soft");
-    }
-
-    function triggerWheelFeedback(value, strong = false) {
-      if (value !== lastHapticValue) {
-        vibrateTick(strong);
-        shakeWheelCenter(strong);
-        lastHapticValue = value;
-      }
-    }
-
-    function beginProgrammaticScrollLock(duration = 260) {
-      isProgrammaticScroll = true;
-      clearTimeout(programmaticScrollUnlock);
-      programmaticScrollUnlock = setTimeout(() => {
-        isProgrammaticScroll = false;
-      }, duration);
+      return 56;
     }
 
     function scrollWheelToValue(value, smooth = true) {
       const index = discounts.indexOf(value);
       if (index < 0) return;
-
       const top = index * getRowHeight();
-      beginProgrammaticScrollLock(smooth ? 320 : 80);
-
-      wheel.scrollTo({
-        top,
-        behavior: smooth ? "smooth" : "auto"
-      });
-
+      wheel.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
       tempDiscount = value;
       highlightWheel();
-      if (smooth) {
-        triggerWheelFeedback(value, true);
-      }
-    }
-
-    function getNearestIndexFromScroll() {
-      const rowHeight = getRowHeight();
-      const index = Math.round(wheel.scrollTop / rowHeight);
-      return Math.max(0, Math.min(discounts.length - 1, index));
     }
 
     function getNearestValueFromScroll() {
-      return discounts[getNearestIndexFromScroll()];
+      const rowHeight = getRowHeight();
+      const index = Math.round(wheel.scrollTop / rowHeight);
+      const safeIndex = Math.max(0, Math.min(discounts.length - 1, index));
+      return discounts[safeIndex];
     }
 
-    function snapWheel(strong = true) {
+    function snapWheel() {
       const value = getNearestValueFromScroll();
       tempDiscount = value;
-
-      const index = discounts.indexOf(value);
-      const targetTop = index * getRowHeight();
-
-      beginProgrammaticScrollLock(320);
-      wheel.scrollTo({
-        top: targetTop,
-        behavior: "smooth"
-      });
-
+      scrollWheelToValue(value, true);
       highlightWheel();
-      triggerWheelFeedback(value, strong);
     }
 
     function highlightWheel() {
       const items = wheel.querySelectorAll(".wheel-item");
-      const activeIndex = discounts.indexOf(tempDiscount);
-
-      items.forEach((item, index) => {
+      items.forEach(item => {
         const value = Number(item.dataset.value);
-        const distance = Math.abs(index - activeIndex);
-
         item.classList.toggle("active", value === tempDiscount);
-
-        if (distance === 0) {
-          item.style.transform = "translateZ(26px) scale(1)";
-          item.style.opacity = "1";
-          item.style.filter = "blur(0)";
-        } else if (distance === 1) {
-          item.style.transform = "translateZ(12px) scale(.93)";
-          item.style.opacity = ".64";
-          item.style.filter = "blur(.12px)";
-        } else if (distance === 2) {
-          item.style.transform = "translateZ(4px) scale(.86)";
-          item.style.opacity = ".32";
-          item.style.filter = "blur(.28px)";
-        } else {
-          item.style.transform = "translateZ(0) scale(.8)";
-          item.style.opacity = ".14";
-          item.style.filter = "blur(.5px)";
-        }
       });
     }
 
@@ -1214,12 +1157,8 @@
       pickerModal.classList.add("show");
       pickerModal.setAttribute("aria-hidden", "false");
       tempDiscount = selectedDiscount;
-      lastHapticValue = selectedDiscount;
       highlightWheel();
-
-      setTimeout(() => {
-        scrollWheelToValue(selectedDiscount, false);
-      }, 10);
+      setTimeout(() => scrollWheelToValue(selectedDiscount, false), 10);
     }
 
     function closeModalFunc() {
@@ -1232,72 +1171,54 @@
       updateSummary();
     });
 
-    clearPriceBtn.addEventListener("click", () => {
+    clearPriceBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
       originalPriceInput.value = "";
       updateSummary();
       originalPriceInput.focus();
-    });
+    }, { passive: false });
 
-    tabQuickBtn.addEventListener("click", () => setActiveTab("quick"));
-    tabTableBtn.addEventListener("click", () => setActiveTab("table"));
+    tabQuickBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      setActiveTab("quick");
+    }, { passive: false });
 
-    openPickerBtn.addEventListener("click", openModal);
-    closePicker.addEventListener("click", closeModalFunc);
+    tabTableBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      setActiveTab("table");
+    }, { passive: false });
 
-    confirmPicker.addEventListener("click", () => {
+    openPickerBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      openModal();
+    }, { passive: false });
+
+    closePicker.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      closeModalFunc();
+    }, { passive: false });
+
+    confirmPicker.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
       selectedDiscount = tempDiscount;
-      lastHapticValue = tempDiscount;
       updateSummary();
       closeModalFunc();
-    });
+    }, { passive: false });
 
     wheel.addEventListener("scroll", () => {
-      if (isProgrammaticScroll) return;
-      if (rafLock) return;
-
-      rafLock = true;
-      requestAnimationFrame(() => {
-        tempDiscount = getNearestValueFromScroll();
-        highlightWheel();
-        triggerWheelFeedback(tempDiscount, false);
-        rafLock = false;
-      });
-
+      tempDiscount = getNearestValueFromScroll();
+      highlightWheel();
       clearTimeout(wheelScrollTimer);
-      clearTimeout(settleTimer);
-
-      wheelScrollTimer = setTimeout(() => {
-        snapWheel(true);
-      }, 90);
-
-      settleTimer = setTimeout(() => {
-        snapWheel(true);
-      }, 170);
-    }, { passive: true });
+      wheelScrollTimer = setTimeout(snapWheel, 80);
+    });
 
     wheel.addEventListener("touchend", () => {
-      setTimeout(() => {
-        snapWheel(true);
-      }, 40);
-    }, { passive: true });
-
-    wheel.addEventListener("pointerup", () => {
-      setTimeout(() => {
-        snapWheel(true);
-      }, 40);
+      setTimeout(snapWheel, 60);
     }, { passive: true });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && pickerModal.classList.contains("show")) {
-        closeModalFunc();
-      }
+      if (e.key === "Escape" && pickerModal.classList.contains("show")) closeModalFunc();
     });
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
-      });
-    }
 
     buildWheel();
     setActiveTab("quick");
