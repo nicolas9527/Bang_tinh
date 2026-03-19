@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <link rel="icon" href="icon.png.PNG" />
-<link rel="shortcut icon" href="icon.png.PNG" />
-<link rel="apple-touch-icon" sizes="250x250" href="icon.png.PNG" />
-<link rel="manifest" href="manifest.json" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<html lang="vi"><head>
+  <link rel="icon" href="icon.png.PNG">
+  <link rel="shortcut icon" href="icon.png.PNG">
+  <link rel="apple-touch-icon" sizes="250x250" href="icon.png.PNG">
+  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
   <title>Tính nhanh giá giảm Luxury</title>
 
-  <meta name="theme-color" content="#f8fbff" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Giảm giá" />
+  <meta name="theme-color" content="#f8fbff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Giảm giá">
 
   <style>
     :root{
@@ -25,7 +23,6 @@
       --text-soft:#64748b;
       --text-faint:#94a3b8;
       --line:rgba(15,23,42,.08);
-      --white:rgba(255,255,255,.92);
       --blue:#2563eb;
       --blue-2:#3b82f6;
       --cyan:#06b6d4;
@@ -33,22 +30,16 @@
       --red:#dc2626;
       --orange:#ea580c;
       --shadow-xs:0 4px 10px rgba(15,23,42,.04);
-      --shadow-sm:0 10px 24px rgba(15,23,42,.06);
-      --shadow-md:0 18px 40px rgba(37,99,235,.10);
       --shadow-lg:0 30px 60px rgba(15,23,42,.12);
       --radius-xl:32px;
       --radius-lg:24px;
-      --radius-md:18px;
       --wheel-row:56px;
       --wheel-visible:5;
       --wheel-height:calc(var(--wheel-row) * var(--wheel-visible));
       --ease:cubic-bezier(.22,1,.36,1);
     }
 
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
+    *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
     html,body{
       margin:0;
@@ -63,7 +54,7 @@
 
     body{
       position:relative;
-      padding:18px 16px 36px;
+      padding:18px 14px 36px;
     }
 
     body::before{
@@ -85,29 +76,9 @@
       opacity:.55;
     }
 
-    .orb-1{
-      width:220px;
-      height:220px;
-      top:-40px;
-      left:-50px;
-      background:rgba(96,165,250,.25);
-    }
-
-    .orb-2{
-      width:260px;
-      height:260px;
-      top:20%;
-      right:-90px;
-      background:rgba(139,92,246,.18);
-    }
-
-    .orb-3{
-      width:220px;
-      height:220px;
-      bottom:-30px;
-      left:20%;
-      background:rgba(34,211,238,.16);
-    }
+    .orb-1{ width:220px; height:220px; top:-40px; left:-50px; background:rgba(96,165,250,.25); }
+    .orb-2{ width:260px; height:260px; top:20%; right:-90px; background:rgba(139,92,246,.18); }
+    .orb-3{ width:220px; height:220px; bottom:-30px; left:20%; background:rgba(34,211,238,.16); }
 
     .wrap{
       max-width:500px;
@@ -124,7 +95,7 @@
 
     .hero{
       text-align:center;
-      margin-bottom:22px;
+      margin-bottom:20px;
     }
 
     .badge{
@@ -155,7 +126,7 @@
 
     .title{
       margin:0 0 8px;
-      font-size:36px;
+      font-size:34px;
       line-height:1.05;
       font-weight:900;
       letter-spacing:-1.2px;
@@ -171,7 +142,7 @@
 
     .shell{
       position:relative;
-      border-radius:calc(var(--radius-xl) + 2px);
+      border-radius:32px;
       padding:1px;
       background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.45));
       box-shadow:var(--shadow-lg);
@@ -180,8 +151,8 @@
     .card{
       position:relative;
       overflow:hidden;
-      border-radius:var(--radius-xl);
-      padding:20px;
+      border-radius:30px;
+      padding:18px;
       background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.70));
       border:1px solid rgba(255,255,255,.75);
       backdrop-filter:blur(22px) saturate(135%);
@@ -198,11 +169,7 @@
         radial-gradient(circle at top right, rgba(96,165,250,.12), transparent 28%);
     }
 
-    .section{
-      margin-bottom:18px;
-      position:relative;
-      z-index:1;
-    }
+    .section{ margin-bottom:16px; position:relative; z-index:1; }
 
     .label{
       display:block;
@@ -215,31 +182,14 @@
       letter-spacing:.55px;
     }
 
-    .input-wrap,
-    .picker-button{
+    .input-wrap,.picker-button{
       position:relative;
       width:100%;
       border-radius:var(--radius-lg);
       background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.94));
       border:1px solid var(--line);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        var(--shadow-xs);
-      transition:
-        transform .16s var(--ease),
-        box-shadow .18s var(--ease),
-        border-color .18s var(--ease);
-    }
-
-    .input-wrap:focus-within,
-    .picker-button:focus{
-      outline:none;
-      border-color:rgba(37,99,235,.22);
-      box-shadow:
-        0 0 0 4px rgba(37,99,235,.08),
-        0 10px 24px rgba(37,99,235,.08),
-        inset 0 1px 0 rgba(255,255,255,.95);
-      transform:translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.95), var(--shadow-xs);
+      transition: transform .16s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
     }
 
     .money-icon{
@@ -262,7 +212,7 @@
 
     .input{
       width:100%;
-      height:72px;
+      height:70px;
       border:none;
       outline:none;
       background:transparent;
@@ -274,10 +224,7 @@
       border-radius:var(--radius-lg);
     }
 
-    .input::placeholder{
-      color:#cbd5e1;
-      font-weight:700;
-    }
+    .input::placeholder{ color:#cbd5e1; font-weight:700; }
 
     .clear-btn{
       position:absolute;
@@ -301,19 +248,14 @@
       pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
     }
-
     .clear-btn.show{
       opacity:1;
       pointer-events:auto;
       transform:translateY(-50%) scale(1);
     }
 
-    .clear-btn:active{
-      transform:translateY(-50%) scale(.95);
-    }
-
     .picker-button{
-      min-height:70px;
+      min-height:68px;
       padding:0 18px;
       display:flex;
       align-items:center;
@@ -321,10 +263,6 @@
       gap:12px;
       cursor:pointer;
       touch-action:manipulation;
-    }
-
-    .picker-button:active{
-      transform:scale(.992);
     }
 
     .picker-left{
@@ -378,9 +316,10 @@
       background:rgba(118,118,128,.08);
       border-radius:16px;
       padding:4px;
-      margin:24px 0 18px;
+      margin:22px 0 18px;
       border:1px solid rgba(15,23,42,.04);
       isolation:isolate;
+      z-index:1;
     }
 
     .segment-indicator{
@@ -391,9 +330,7 @@
       width:calc(50% - 4px);
       border-radius:12px;
       background:linear-gradient(180deg, rgba(255,255,255,1), rgba(250,252,255,.96));
-      box-shadow:
-        0 6px 14px rgba(15,23,42,.10),
-        0 1px 0 rgba(255,255,255,.95) inset;
+      box-shadow:0 6px 14px rgba(15,23,42,.10), 0 1px 0 rgba(255,255,255,.95) inset;
       transition:transform .34s cubic-bezier(.25,1,.5,1);
       z-index:0;
     }
@@ -410,39 +347,17 @@
       font-weight:800;
       border-radius:12px;
       cursor:pointer;
-      transition:color .22s ease, transform .14s ease;
       touch-action:manipulation;
     }
+    .segment-btn.active{ color:var(--text); }
 
-    .segment-btn.active{
-      color:var(--text);
-    }
+    .panels{ position:relative; z-index:1; }
+    .panel{ display:none; animation:panelIn .22s ease; }
+    .panel.active{ display:block; }
 
-    .segment-btn:active{
-      transform:scale(.985);
-    }
-
-    .panels{
-      position:relative;
-      min-height:520px;
-    }
-
-    .panel{
-      position:absolute;
-      inset:0;
-      opacity:0;
-      pointer-events:none;
-      transform:translateY(10px);
-      transition:
-        opacity .26s ease,
-        transform .32s var(--ease);
-    }
-
-    .panel.active{
-      opacity:1;
-      pointer-events:auto;
-      transform:translateY(0);
-      z-index:1;
+    @keyframes panelIn{
+      from{opacity:.4; transform:translateY(8px);}
+      to{opacity:1; transform:translateY(0);}
     }
 
     .result-main{
@@ -455,19 +370,6 @@
         radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 22%),
         linear-gradient(135deg, #101828 0%, #172554 55%, #2563eb 120%);
       box-shadow:0 22px 42px rgba(15,23,42,.20);
-    }
-
-    .result-main::before{
-      content:"";
-      position:absolute;
-      top:-40px;
-      right:-34px;
-      width:150px;
-      height:150px;
-      border-radius:50%;
-      background:rgba(96,165,250,.22);
-      filter:blur(40px);
-      pointer-events:none;
     }
 
     .result-main-label{
@@ -491,8 +393,6 @@
       letter-spacing:-1.2px;
       color:#fff;
       word-break:break-word;
-      text-shadow:0 8px 24px rgba(0,0,0,.14);
-      transition:opacity .16s ease, transform .16s ease;
     }
 
     .mini-grid{
@@ -509,14 +409,8 @@
       border:1px solid rgba(255,255,255,.88);
       box-shadow:var(--shadow-xs);
     }
-
-    .mini.green{
-      background:linear-gradient(180deg, rgba(240,253,244,.96), rgba(255,255,255,.95));
-    }
-
-    .mini.red{
-      background:linear-gradient(180deg, rgba(255,241,242,.96), rgba(255,255,255,.95));
-    }
+    .mini.green{ background:linear-gradient(180deg, rgba(240,253,244,.96), rgba(255,255,255,.95)); }
+    .mini.red{ background:linear-gradient(180deg, rgba(255,241,242,.96), rgba(255,255,255,.95)); }
 
     .mini-label{
       font-size:13px;
@@ -529,9 +423,7 @@
       font-size:23px;
       font-weight:900;
       letter-spacing:-.6px;
-      transition:opacity .16s ease, transform .16s ease;
     }
-
     .mini.green .mini-value{ color:var(--green); }
     .mini.red .mini-value{ color:var(--red); }
 
@@ -544,7 +436,7 @@
     }
 
     .list-title{
-      font-size:17px;
+      font-size:16px;
       font-weight:900;
       margin:0;
       color:var(--text);
@@ -552,13 +444,15 @@
     }
 
     .selected-tag{
-      background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(37,99,235,.05));
+      background:linear-gradient(180deg, rgba(37,99,235,.14), rgba(37,99,235,.06));
       color:var(--blue);
       border-radius:999px;
-      padding:7px 12px;
+      padding:8px 12px;
       font-size:12px;
-      font-weight:800;
-      border:1px solid rgba(37,99,235,.08);
+      font-weight:900;
+      border:1px solid rgba(37,99,235,.10);
+      white-space:nowrap;
+      box-shadow:0 6px 14px rgba(37,99,235,.08);
     }
 
     .price-grid{
@@ -573,25 +467,15 @@
       background:rgba(255,255,255,.94);
       border:1px solid #e7edf7;
       cursor:pointer;
-      transition:
-        transform .16s ease,
-        box-shadow .18s ease,
-        border-color .18s ease,
-        background .18s ease;
+      transition: transform .16s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
       box-shadow:var(--shadow-xs);
       touch-action:manipulation;
-    }
-
-    .price-item:active{
-      transform:scale(.97);
     }
 
     .price-item.active{
       background:linear-gradient(180deg, #f8fbff, #f1f7ff);
       border-color:#93c5fd;
-      box-shadow:
-        0 0 0 1px #93c5fd,
-        0 10px 24px rgba(37,99,235,.08);
+      box-shadow:0 0 0 1px #93c5fd, 0 10px 24px rgba(37,99,235,.08);
     }
 
     .price-item .p{
@@ -608,70 +492,126 @@
       letter-spacing:-.5px;
     }
 
-    .table-wrap{
+    .table-shell{
+      position:relative;
+      border-radius:26px;
+      padding:10px 8px;
+      background:linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.62));
+      border:1px solid rgba(255,255,255,.8);
+      box-shadow:
+        0 20px 42px rgba(15,23,42,.08),
+        inset 0 1px 0 rgba(255,255,255,.85);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      overflow:hidden;
+    }
+
+    .table-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,.10), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(6,182,212,.08), transparent 26%);
+    }
+
+    .range-grid{
+      position:relative;
+      z-index:1;
       display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:12px;
-      max-height:540px;
-      overflow:auto;
-      padding-right:4px;
-      scrollbar-width:thin;
-      align-content:start;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:8px;
+      align-items:start;
+      margin-bottom:2px;
     }
 
-    .table-wrap::-webkit-scrollbar{
-      width:4px;
-    }
-
-    .table-wrap::-webkit-scrollbar-thumb{
-      background:#cbd5e1;
-      border-radius:4px;
-    }
-
-    .table-item{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      background:rgba(255,255,255,.94);
+    .range-col{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.94));
+      border:1px solid rgba(15,23,42,.06);
       border-radius:18px;
-      padding:16px;
-      border:1px solid #edf2f8;
-      box-shadow:var(--shadow-xs);
+      box-shadow:
+        0 10px 22px rgba(15,23,42,.05),
+        inset 0 1px 0 rgba(255,255,255,.95);
       min-width:0;
     }
 
-    .table-block{
-      min-width:0;
+    .range-col::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:54px;
+      background:linear-gradient(180deg, rgba(59,130,246,.07), rgba(59,130,246,0));
+      pointer-events:none;
     }
 
-    .table-k{
+    .range-head{
+      position:relative;
+      text-align:center;
       font-size:11px;
-      color:var(--text-soft);
-      font-weight:700;
-      margin-bottom:4px;
-      text-transform:uppercase;
-      letter-spacing:.55px;
-    }
-
-    .table-v{
-      font-size:18px;
       font-weight:900;
-      color:var(--text);
-      letter-spacing:-.4px;
-      line-height:1.15;
-      word-break:break-word;
+      color:#0f172a;
+      padding:12px 4px 10px;
+      border-bottom:1px solid rgba(15,23,42,.06);
+      letter-spacing:-.2px;
+      white-space:nowrap;
     }
 
-    .table-v.blue{
-      color:var(--blue);
+    .range-list{
+      padding:4px 6px 8px;
+    }
+
+    .range-row{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 14px minmax(0,1fr);
+      align-items:center;
+      gap:2px;
+      min-height:30px;
+      padding:4px 0;
+      border-bottom:1px solid rgba(15,23,42,.05);
+    }
+
+    .range-row:last-child{ border-bottom:none; }
+
+    .range-old{
+      font-size:10px;
+      font-weight:800;
+      color:#475569;
+      text-align:right;
+      letter-spacing:-.1px;
+      white-space:nowrap;
+    }
+
+    .range-arrow{
+      font-size:10px;
+      color:#94a3b8;
+      font-weight:900;
+      text-align:center;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .range-new{
+      font-size:10px;
+      font-weight:900;
+      color:#0f172a;
+      text-align:left;
+      letter-spacing:-.15px;
+      white-space:nowrap;
     }
 
     .footer-note,.install-tip{
+      position:relative;
+      z-index:1;
       text-align:center;
       font-size:13px;
       color:var(--text-faint);
       font-weight:600;
-      margin-top:24px;
+      margin-top:22px;
       line-height:1.55;
     }
 
@@ -690,10 +630,7 @@
       display:none;
       z-index:9999;
     }
-
-    .modal.show{
-      display:block;
-    }
+    .modal.show{ display:block; }
 
     .backdrop{
       position:absolute;
@@ -764,16 +701,8 @@
       z-index:3;
       pointer-events:none;
     }
-
-    .wheel-fade-top{
-      top:0;
-      background:linear-gradient(to bottom, #ffffff, rgba(255,255,255,0));
-    }
-
-    .wheel-fade-bottom{
-      bottom:0;
-      background:linear-gradient(to top, #ffffff, rgba(255,255,255,0));
-    }
+    .wheel-fade-top{ top:0; background:linear-gradient(to bottom, #ffffff, rgba(255,255,255,0)); }
+    .wheel-fade-bottom{ bottom:0; background:linear-gradient(to top, #ffffff, rgba(255,255,255,0)); }
 
     .wheel-center{
       position:absolute;
@@ -800,7 +729,6 @@
       scrollbar-width:none;
       -webkit-overflow-scrolling:touch;
     }
-
     .wheel::-webkit-scrollbar{ display:none; }
 
     .wheel-item{
@@ -821,9 +749,7 @@
       font-weight:900;
     }
 
-    .sheet-actions{
-      padding:0 20px 20px;
-    }
+    .sheet-actions{ padding:0 20px 20px; }
 
     .confirm-btn{
       width:100%;
@@ -839,32 +765,9 @@
       transition:transform .16s ease, filter .16s ease;
       touch-action:manipulation;
     }
-
-    .confirm-btn:active{
-      transform:scale(.97);
-      filter:brightness(.98);
-    }
-
-    @media (max-width:390px){
-      .title{ font-size:29px; }
-      .subtitle{ font-size:14px; }
-      .input{ font-size:28px; height:66px; }
-      .result-main-value{ font-size:35px; }
-      .panels{ min-height:500px; }
-      .table-wrap{
-        gap:10px;
-      }
-      .table-item{
-        padding:14px;
-      }
-      .table-v{
-        font-size:16px;
-      }
-    }
   </style>
 </head>
 <body>
-
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
   <div class="bg-orb orb-3"></div>
@@ -885,7 +788,7 @@
           <label class="label" for="originalPrice">Giá Gốc</label>
           <div class="input-wrap">
             <div class="money-icon">₫</div>
-            <input id="originalPrice" class="input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" autocomplete="off" />
+            <input id="originalPrice" class="input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" autocomplete="off">
             <button class="clear-btn" id="clearPriceBtn" type="button" aria-label="Xoá nhanh">×</button>
           </div>
         </div>
@@ -897,7 +800,7 @@
               <div class="picker-icon">%</div>
               <div class="picker-text">
                 <div class="picker-title">Đang áp dụng</div>
-                <div class="picker-value" id="selectedDiscountText">20%</div>
+                <div class="picker-value" id="selectedDiscountText">60%</div>
               </div>
             </div>
             <div class="picker-arrow">›</div>
@@ -905,7 +808,7 @@
         </div>
 
         <div class="segment">
-          <div class="segment-indicator" id="segmentIndicator"></div>
+          <div class="segment-indicator" id="segmentIndicator" style="transform: translateX(0px);"></div>
           <button class="segment-btn active" id="tabQuickBtn" type="button">Kết quả nhanh</button>
           <button class="segment-btn" id="tabTableBtn" type="button">Bảng giá sẵn</button>
         </div>
@@ -924,22 +827,357 @@
               </div>
               <div class="mini red">
                 <div class="mini-label">Phần trăm còn lại</div>
-                <div class="mini-value" id="remainPercent">80%</div>
+                <div class="mini-value" id="remainPercent">40%</div>
               </div>
             </div>
 
             <div class="list-head">
               <h3 class="list-title">Mức giảm phổ biến</h3>
             </div>
-            <div class="price-grid" id="priceGrid"></div>
+            <div class="price-grid" id="priceGrid"><div class="price-item">
+          <div class="p">Giảm 20%</div>
+          <div class="v">0 ₫</div>
+        </div><div class="price-item">
+          <div class="p">Giảm 30%</div>
+          <div class="v">0 ₫</div>
+        </div><div class="price-item">
+          <div class="p">Giảm 40%</div>
+          <div class="v">0 ₫</div>
+        </div><div class="price-item">
+          <div class="p">Giảm 50%</div>
+          <div class="v">0 ₫</div>
+        </div></div>
           </div>
 
           <div class="panel" id="panelTable">
             <div class="list-head">
-              <h3 class="list-title">Từ 20k – 100k</h3>
-              <div class="selected-tag" id="tableTag">Giảm 20%</div>
+              <h3 class="list-title">Từ 20k - 99k</h3>
+              <div class="selected-tag" id="tableTag">Giảm 60%</div>
             </div>
-            <div class="table-wrap" id="rangeTable"></div>
+
+            <div class="table-shell">
+              <div class="range-grid" id="rangeTable"><div class="range-col"><div class="range-head">20 - 39</div><div class="range-list"><div class="range-row">
+            <div class="range-old">20</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">8</div>
+          </div><div class="range-row">
+            <div class="range-old">21</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">8</div>
+          </div><div class="range-row">
+            <div class="range-old">22</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">9</div>
+          </div><div class="range-row">
+            <div class="range-old">23</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">9</div>
+          </div><div class="range-row">
+            <div class="range-old">24</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">10</div>
+          </div><div class="range-row">
+            <div class="range-old">25</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">10</div>
+          </div><div class="range-row">
+            <div class="range-old">26</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">10</div>
+          </div><div class="range-row">
+            <div class="range-old">27</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">11</div>
+          </div><div class="range-row">
+            <div class="range-old">28</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">11</div>
+          </div><div class="range-row">
+            <div class="range-old">29</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">12</div>
+          </div><div class="range-row">
+            <div class="range-old">30</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">12</div>
+          </div><div class="range-row">
+            <div class="range-old">31</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">12</div>
+          </div><div class="range-row">
+            <div class="range-old">32</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">13</div>
+          </div><div class="range-row">
+            <div class="range-old">33</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">13</div>
+          </div><div class="range-row">
+            <div class="range-old">34</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">14</div>
+          </div><div class="range-row">
+            <div class="range-old">35</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">14</div>
+          </div><div class="range-row">
+            <div class="range-old">36</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">14</div>
+          </div><div class="range-row">
+            <div class="range-old">37</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">15</div>
+          </div><div class="range-row">
+            <div class="range-old">38</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">15</div>
+          </div><div class="range-row">
+            <div class="range-old">39</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">16</div>
+          </div></div></div><div class="range-col"><div class="range-head">40 - 59</div><div class="range-list"><div class="range-row">
+            <div class="range-old">40</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">16</div>
+          </div><div class="range-row">
+            <div class="range-old">41</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">16</div>
+          </div><div class="range-row">
+            <div class="range-old">42</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">17</div>
+          </div><div class="range-row">
+            <div class="range-old">43</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">17</div>
+          </div><div class="range-row">
+            <div class="range-old">44</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">18</div>
+          </div><div class="range-row">
+            <div class="range-old">45</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">18</div>
+          </div><div class="range-row">
+            <div class="range-old">46</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">18</div>
+          </div><div class="range-row">
+            <div class="range-old">47</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">19</div>
+          </div><div class="range-row">
+            <div class="range-old">48</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">19</div>
+          </div><div class="range-row">
+            <div class="range-old">49</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">20</div>
+          </div><div class="range-row">
+            <div class="range-old">50</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">20</div>
+          </div><div class="range-row">
+            <div class="range-old">51</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">20</div>
+          </div><div class="range-row">
+            <div class="range-old">52</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">21</div>
+          </div><div class="range-row">
+            <div class="range-old">53</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">21</div>
+          </div><div class="range-row">
+            <div class="range-old">54</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">22</div>
+          </div><div class="range-row">
+            <div class="range-old">55</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">22</div>
+          </div><div class="range-row">
+            <div class="range-old">56</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">22</div>
+          </div><div class="range-row">
+            <div class="range-old">57</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">23</div>
+          </div><div class="range-row">
+            <div class="range-old">58</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">23</div>
+          </div><div class="range-row">
+            <div class="range-old">59</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">24</div>
+          </div></div></div><div class="range-col"><div class="range-head">60 - 79</div><div class="range-list"><div class="range-row">
+            <div class="range-old">60</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">24</div>
+          </div><div class="range-row">
+            <div class="range-old">61</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">24</div>
+          </div><div class="range-row">
+            <div class="range-old">62</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">25</div>
+          </div><div class="range-row">
+            <div class="range-old">63</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">25</div>
+          </div><div class="range-row">
+            <div class="range-old">64</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">26</div>
+          </div><div class="range-row">
+            <div class="range-old">65</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">26</div>
+          </div><div class="range-row">
+            <div class="range-old">66</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">26</div>
+          </div><div class="range-row">
+            <div class="range-old">67</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">27</div>
+          </div><div class="range-row">
+            <div class="range-old">68</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">27</div>
+          </div><div class="range-row">
+            <div class="range-old">69</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">28</div>
+          </div><div class="range-row">
+            <div class="range-old">70</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">28</div>
+          </div><div class="range-row">
+            <div class="range-old">71</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">28</div>
+          </div><div class="range-row">
+            <div class="range-old">72</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">29</div>
+          </div><div class="range-row">
+            <div class="range-old">73</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">29</div>
+          </div><div class="range-row">
+            <div class="range-old">74</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">30</div>
+          </div><div class="range-row">
+            <div class="range-old">75</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">30</div>
+          </div><div class="range-row">
+            <div class="range-old">76</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">30</div>
+          </div><div class="range-row">
+            <div class="range-old">77</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">31</div>
+          </div><div class="range-row">
+            <div class="range-old">78</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">31</div>
+          </div><div class="range-row">
+            <div class="range-old">79</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">32</div>
+          </div></div></div><div class="range-col"><div class="range-head">80 - 99</div><div class="range-list"><div class="range-row">
+            <div class="range-old">80</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">32</div>
+          </div><div class="range-row">
+            <div class="range-old">81</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">32</div>
+          </div><div class="range-row">
+            <div class="range-old">82</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">33</div>
+          </div><div class="range-row">
+            <div class="range-old">83</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">33</div>
+          </div><div class="range-row">
+            <div class="range-old">84</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">34</div>
+          </div><div class="range-row">
+            <div class="range-old">85</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">34</div>
+          </div><div class="range-row">
+            <div class="range-old">86</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">34</div>
+          </div><div class="range-row">
+            <div class="range-old">87</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">35</div>
+          </div><div class="range-row">
+            <div class="range-old">88</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">35</div>
+          </div><div class="range-row">
+            <div class="range-old">89</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">36</div>
+          </div><div class="range-row">
+            <div class="range-old">90</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">36</div>
+          </div><div class="range-row">
+            <div class="range-old">91</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">36</div>
+          </div><div class="range-row">
+            <div class="range-old">92</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">37</div>
+          </div><div class="range-row">
+            <div class="range-old">93</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">37</div>
+          </div><div class="range-row">
+            <div class="range-old">94</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">38</div>
+          </div><div class="range-row">
+            <div class="range-old">95</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">38</div>
+          </div><div class="range-row">
+            <div class="range-old">96</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">38</div>
+          </div><div class="range-row">
+            <div class="range-old">97</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">39</div>
+          </div><div class="range-row">
+            <div class="range-old">98</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">39</div>
+          </div><div class="range-row">
+            <div class="range-old">99</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">40</div>
+          </div></div></div></div>
+            </div>
           </div>
         </div>
 
@@ -960,7 +1198,7 @@
         <div class="wheel-fade-top"></div>
         <div class="wheel-fade-bottom"></div>
         <div class="wheel-center"></div>
-        <div class="wheel" id="wheel"></div>
+        <div class="wheel" id="wheel"><div class="wheel-item active" data-value="10">10%</div><div class="wheel-item" data-value="15">15%</div><div class="wheel-item" data-value="20">20%</div><div class="wheel-item" data-value="25">25%</div><div class="wheel-item" data-value="30">30%</div><div class="wheel-item" data-value="35">35%</div><div class="wheel-item" data-value="40">40%</div><div class="wheel-item" data-value="45">45%</div><div class="wheel-item" data-value="50">50%</div><div class="wheel-item" data-value="55">55%</div><div class="wheel-item" data-value="60">60%</div><div class="wheel-item" data-value="70">70%</div><div class="wheel-item" data-value="80">80%</div></div>
       </div>
 
       <div class="sheet-actions">
@@ -1003,6 +1241,10 @@
       return new Intl.NumberFormat("vi-VN").format(Math.round(number)) + " ₫";
     }
 
+    function formatK(number) {
+      return Math.round(number / 1000).toString();
+    }
+
     function rawNumber(value) {
       return value.replace(/\D/g, "");
     }
@@ -1023,29 +1265,14 @@
 
     function setActiveTab(tabName) {
       if (activeTab === tabName) return;
-
       const isQuick = tabName === "quick";
       activeTab = tabName;
 
       tabQuickBtn.classList.toggle("active", isQuick);
       tabTableBtn.classList.toggle("active", !isQuick);
-
       segmentIndicator.style.transform = isQuick ? "translateX(0)" : "translateX(calc(100% + 4px))";
-
       panelQuick.classList.toggle("active", isQuick);
       panelTable.classList.toggle("active", !isQuick);
-    }
-
-    function animateValue(el, value) {
-      el.style.opacity = "0.55";
-      el.style.transform = "translateY(4px)";
-      requestAnimationFrame(() => {
-        el.textContent = value;
-        requestAnimationFrame(() => {
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-        });
-      });
     }
 
     function updateSummary() {
@@ -1057,9 +1284,9 @@
       selectedDiscountText.textContent = selectedDiscount + "%";
       tableTag.textContent = "Giảm " + selectedDiscount + "%";
 
-      animateValue(finalPriceEl, formatCurrency(finalPrice));
-      animateValue(discountAmountEl, formatCurrency(discountAmount));
-      animateValue(remainPercentEl, remainPercent + "%");
+      finalPriceEl.textContent = formatCurrency(finalPrice);
+      discountAmountEl.textContent = formatCurrency(discountAmount);
+      remainPercentEl.textContent = remainPercent + "%";
 
       renderPriceGrid(price);
       renderRangeTable();
@@ -1078,36 +1305,52 @@
           <div class="p">Giảm ${percent}%</div>
           <div class="v">${formatCurrency(discounted)}</div>
         `;
-
-        item.addEventListener("pointerdown", (e) => {
-          e.preventDefault();
+        item.addEventListener("click", () => {
           selectedDiscount = percent;
           tempDiscount = percent;
           updateSummary();
-        }, { passive: false });
-
+        });
         priceGrid.appendChild(item);
       });
     }
 
     function renderRangeTable() {
       rangeTable.innerHTML = "";
-      for (let price = 20000; price <= 100000; price += 1000) {
-        const discounted = price - (price * selectedDiscount / 100);
-        const item = document.createElement("div");
-        item.className = "table-item";
-        item.innerHTML = `
-          <div class="table-block">
-            <div class="table-k">Giá gốc</div>
-            <div class="table-v">${formatCurrency(price)}</div>
-          </div>
-          <div class="table-block">
-            <div class="table-k">Giảm ${selectedDiscount}%</div>
-            <div class="table-v blue">${formatCurrency(discounted)}</div>
-          </div>
-        `;
-        rangeTable.appendChild(item);
-      }
+
+      const groups = [
+        { start: 20000, end: 39000 },
+        { start: 40000, end: 59000 },
+        { start: 60000, end: 79000 },
+        { start: 80000, end: 99000 }
+      ];
+
+      groups.forEach(group => {
+        const col = document.createElement("div");
+        col.className = "range-col";
+
+        const head = document.createElement("div");
+        head.className = "range-head";
+        head.textContent = `${group.start / 1000} - ${group.end / 1000}`;
+        col.appendChild(head);
+
+        const list = document.createElement("div");
+        list.className = "range-list";
+
+        for (let price = group.start; price <= group.end; price += 1000) {
+          const discounted = price - (price * selectedDiscount / 100);
+          const row = document.createElement("div");
+          row.className = "range-row";
+          row.innerHTML = `
+            <div class="range-old">${formatK(price)}</div>
+            <div class="range-arrow">→</div>
+            <div class="range-new">${formatK(discounted)}</div>
+          `;
+          list.appendChild(row);
+        }
+
+        col.appendChild(list);
+        rangeTable.appendChild(col);
+      });
     }
 
     function buildWheel() {
@@ -1129,15 +1372,13 @@
     function scrollWheelToValue(value, smooth = true) {
       const index = discounts.indexOf(value);
       if (index < 0) return;
-      const top = index * getRowHeight();
-      wheel.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+      wheel.scrollTo({ top: index * getRowHeight(), behavior: smooth ? "smooth" : "auto" });
       tempDiscount = value;
       highlightWheel();
     }
 
     function getNearestValueFromScroll() {
-      const rowHeight = getRowHeight();
-      const index = Math.round(wheel.scrollTop / rowHeight);
+      const index = Math.round(wheel.scrollTop / getRowHeight());
       const safeIndex = Math.max(0, Math.min(discounts.length - 1, index));
       return discounts[safeIndex];
     }
@@ -1150,10 +1391,8 @@
     }
 
     function highlightWheel() {
-      const items = wheel.querySelectorAll(".wheel-item");
-      items.forEach(item => {
-        const value = Number(item.dataset.value);
-        item.classList.toggle("active", value === tempDiscount);
+      wheel.querySelectorAll(".wheel-item").forEach(item => {
+        item.classList.toggle("active", Number(item.dataset.value) === tempDiscount);
       });
     }
 
@@ -1161,7 +1400,6 @@
       pickerModal.classList.add("show");
       pickerModal.setAttribute("aria-hidden", "false");
       tempDiscount = selectedDiscount;
-      highlightWheel();
       setTimeout(() => scrollWheelToValue(selectedDiscount, false), 10);
     }
 
@@ -1175,39 +1413,22 @@
       updateSummary();
     });
 
-    clearPriceBtn.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
+    clearPriceBtn.addEventListener("click", () => {
       originalPriceInput.value = "";
       updateSummary();
       originalPriceInput.focus();
-    }, { passive: false });
+    });
 
-    tabQuickBtn.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      setActiveTab("quick");
-    }, { passive: false });
+    tabQuickBtn.addEventListener("click", () => setActiveTab("quick"));
+    tabTableBtn.addEventListener("click", () => setActiveTab("table"));
+    openPickerBtn.addEventListener("click", openModal);
+    closePicker.addEventListener("click", closeModalFunc);
 
-    tabTableBtn.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      setActiveTab("table");
-    }, { passive: false });
-
-    openPickerBtn.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      openModal();
-    }, { passive: false });
-
-    closePicker.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      closeModalFunc();
-    }, { passive: false });
-
-    confirmPicker.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
+    confirmPicker.addEventListener("click", () => {
       selectedDiscount = tempDiscount;
       updateSummary();
       closeModalFunc();
-    }, { passive: false });
+    });
 
     wheel.addEventListener("scroll", () => {
       tempDiscount = getNearestValueFromScroll();
@@ -1228,5 +1449,6 @@
     setActiveTab("quick");
     updateSummary();
   </script>
-</body>
-</html>
+
+
+</body></html>
