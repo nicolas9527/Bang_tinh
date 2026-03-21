@@ -1230,7 +1230,7 @@
     const confirmPicker = document.getElementById("confirmPicker");
     const wheel = document.getElementById("wheel");
 
-    const discounts = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80];
+    const discounts = [20, 25, 30, 40, 50, 60];
 
     let selectedDiscount = 20;
     let tempDiscount = 20;
@@ -1295,7 +1295,7 @@
 
     function renderPriceGrid(price) {
       priceGrid.innerHTML = "";
-      const showDiscounts = [20, 30, 40, 50];
+      const showDiscounts = [20, 25, 30, 40, 50, 60];
 
       showDiscounts.forEach(percent => {
         const discounted = price - (price * percent / 100);
