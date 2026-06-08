@@ -1,8 +1,11 @@
-<html lang="vi"><head>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
   <link rel="icon" href="icon.png.PNG">
   <link rel="shortcut icon" href="icon.png.PNG">
   <link rel="apple-touch-icon" sizes="250x250" href="icon.png.PNG">
   <link rel="manifest" href="manifest.json">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
   <title>Tính nhanh giá giảm Luxury</title>
@@ -248,6 +251,7 @@
       pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
     }
+
     .clear-btn.show{
       opacity:1;
       pointer-events:auto;
@@ -349,6 +353,7 @@
       cursor:pointer;
       touch-action:manipulation;
     }
+
     .segment-btn.active{ color:var(--text); }
 
     .panels{ position:relative; z-index:1; }
@@ -409,6 +414,7 @@
       border:1px solid rgba(255,255,255,.88);
       box-shadow:var(--shadow-xs);
     }
+
     .mini.green{ background:linear-gradient(180deg, rgba(240,253,244,.96), rgba(255,255,255,.95)); }
     .mini.red{ background:linear-gradient(180deg, rgba(255,241,242,.96), rgba(255,255,255,.95)); }
 
@@ -424,6 +430,7 @@
       font-weight:900;
       letter-spacing:-.6px;
     }
+
     .mini.green .mini-value{ color:var(--green); }
     .mini.red .mini-value{ color:var(--red); }
 
@@ -471,6 +478,8 @@
       box-shadow:var(--shadow-xs);
       touch-action:manipulation;
     }
+
+    .price-item:active{ transform:scale(.98); }
 
     .price-item.active{
       background:linear-gradient(180deg, #f8fbff, #f1f7ff);
@@ -561,9 +570,7 @@
       white-space:nowrap;
     }
 
-    .range-list{
-      padding:4px 6px 8px;
-    }
+    .range-list{ padding:4px 6px 8px; }
 
     .range-row{
       display:grid;
@@ -630,6 +637,7 @@
       display:none;
       z-index:9999;
     }
+
     .modal.show{ display:block; }
 
     .backdrop{
@@ -701,6 +709,7 @@
       z-index:3;
       pointer-events:none;
     }
+
     .wheel-fade-top{ top:0; background:linear-gradient(to bottom, #ffffff, rgba(255,255,255,0)); }
     .wheel-fade-bottom{ bottom:0; background:linear-gradient(to top, #ffffff, rgba(255,255,255,0)); }
 
@@ -718,17 +727,21 @@
       pointer-events:none;
     }
 
+    /* FIX: wheel mượt hơn, không ép snap quá gắt khi đang vuốt */
     .wheel{
       position:relative;
       z-index:1;
       height:100%;
       overflow-y:auto;
       overscroll-behavior:contain;
-      scroll-snap-type:y mandatory;
+      scroll-snap-type:y proximity;
       padding:calc(var(--wheel-row) * 2) 0;
       scrollbar-width:none;
       -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
+      scroll-behavior:auto;
     }
+
     .wheel::-webkit-scrollbar{ display:none; }
 
     .wheel-item{
@@ -740,13 +753,15 @@
       color:#cbd5e1;
       font-weight:700;
       scroll-snap-align:center;
-      transition:all .18s ease;
+      transition:color .16s ease, font-size .16s ease, font-weight .16s ease, transform .16s ease;
+      will-change:transform;
     }
 
     .wheel-item.active{
       color:var(--blue);
       font-size:32px;
       font-weight:900;
+      transform:scale(1.02);
     }
 
     .sheet-actions{ padding:0 20px 20px; }
@@ -765,8 +780,816 @@
       transition:transform .16s ease, filter .16s ease;
       touch-action:manipulation;
     }
+
+    .confirm-btn:active{
+      transform:scale(.98);
+      filter:brightness(.98);
+    }
+
+    @media (max-width:390px){
+      body{ padding-left:10px; padding-right:10px; }
+      .card{ padding:14px; }
+      .title{ font-size:30px; }
+      .result-main-value{ font-size:36px; }
+      .range-grid{ gap:5px; }
+      .range-head{ font-size:10px; }
+      .range-old,.range-arrow,.range-new{ font-size:9px; }
+    }
+
+    /* ===== PHÓNG TO BẢNG GIÁ - DỄ NHÌN HƠN ===== */
+
+    .wrap{
+      max-width:680px;
+    }
+
+    .card{
+      padding:22px;
+    }
+
+    #panelTable{
+      margin-left:-8px;
+      margin-right:-8px;
+    }
+
+    #panelTable .list-head{
+      padding:0 4px;
+      margin-bottom:16px;
+    }
+
+    #panelTable .list-title{
+      font-size:22px;
+      letter-spacing:-.6px;
+    }
+
+    #panelTable .selected-tag{
+      font-size:15px;
+      padding:10px 16px;
+    }
+
+    .table-shell{
+      padding:14px 12px 16px;
+      border-radius:30px;
+    }
+
+    .range-grid{
+      gap:12px;
+    }
+
+    .range-col{
+      border-radius:22px;
+    }
+
+    .range-head{
+      font-size:14px;
+      padding:15px 4px 13px;
+    }
+
+    .range-list{
+      padding:8px 8px 10px;
+    }
+
+    .range-row{
+      min-height:39px;
+      padding:7px 0;
+      grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr);
+    }
+
+    .range-old{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .range-arrow{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .range-new{
+      font-size:14px;
+      font-weight:950;
+    }
+
+    @media (max-width:430px){
+      body{
+        padding-left:6px;
+        padding-right:6px;
+      }
+
+      .wrap{
+        width:100%;
+        max-width:none;
+      }
+
+      .shell{
+        border-radius:28px;
+      }
+
+      .card{
+        padding:14px 10px;
+        border-radius:27px;
+      }
+
+      #panelTable{
+        margin-left:-4px;
+        margin-right:-4px;
+      }
+
+      #panelTable .list-title{
+        font-size:21px;
+      }
+
+      #panelTable .selected-tag{
+        font-size:14px;
+        padding:9px 14px;
+      }
+
+      .table-shell{
+        padding:12px 7px 14px;
+        border-radius:28px;
+      }
+
+      .range-grid{
+        gap:7px;
+      }
+
+      .range-col{
+        border-radius:20px;
+      }
+
+      .range-head{
+        font-size:13px;
+        padding:14px 2px 12px;
+      }
+
+      .range-list{
+        padding:6px 5px 8px;
+      }
+
+      .range-row{
+        min-height:38px;
+        padding:7px 0;
+        grid-template-columns:minmax(0,1fr) 15px minmax(0,1fr);
+      }
+
+      .range-old,
+      .range-arrow{
+        font-size:12px;
+      }
+
+      .range-new{
+        font-size:13px;
+      }
+
+      .footer-note{
+        font-size:14px;
+        margin-top:24px;
+      }
+    }
+
+    @media (max-width:360px){
+      .range-grid{
+        gap:5px;
+      }
+
+      .table-shell{
+        padding-left:5px;
+        padding-right:5px;
+      }
+
+      .range-head{
+        font-size:12px;
+      }
+
+      .range-old,
+      .range-arrow{
+        font-size:11px;
+      }
+
+      .range-new{
+        font-size:12px;
+      }
+    }
+
+
+    /* ===== PHÂN LOẠI MÀU GIÁ GỐC / GIÁ SAU GIẢM TRONG BẢNG ===== */
+
+    .range-old{
+      color:#64748b;
+      font-weight:850;
+    }
+
+    .range-arrow{
+      color:#94a3b8;
+    }
+
+    .range-new{
+      color:#2563eb;
+      font-weight:950;
+    }
+
+    .range-row{
+      position:relative;
+    }
+
+    .range-row:hover .range-new{
+      color:#1d4ed8;
+    }
+
+    .range-head{
+      color:#0f172a;
+    }
+
+    .range-col{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.96));
+    }
+
+    .range-col::after{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:50%;
+      width:1px;
+      background:linear-gradient(180deg, transparent, rgba(37,99,235,.10), transparent);
+      pointer-events:none;
+    }
+
+    .table-shell{
+      background:
+        radial-gradient(circle at top left, rgba(148,163,184,.09), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(37,99,235,.10), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.66));
+    }
+
+
+    /* ===== XOÁ LINE DỌC GIỮA CÁC GIÁ TRONG BẢNG ===== */
+
+    .range-col::after{
+      display:none !important;
+      content:none !important;
+      background:none !important;
+    }
+
+
+    /* ===== LƯỚI CHỌN PHẦN TRĂM - THAY CHO THANH CUỘN ===== */
+
+    .discount-grid-wrap{
+      margin:0 20px 22px;
+      border-radius:28px;
+      padding:14px;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,.10), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,251,255,.92));
+      border:1px solid rgba(15,23,42,.06);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.96),
+        0 14px 30px rgba(15,23,42,.08);
+    }
+
+    .discount-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .discount-option{
+      position:relative;
+      min-height:62px;
+      border:none;
+      border-radius:20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,1), rgba(244,248,255,.96));
+      color:#475569;
+      font-size:20px;
+      font-weight:950;
+      letter-spacing:-.4px;
+      cursor:pointer;
+      box-shadow:
+        0 8px 18px rgba(15,23,42,.06),
+        inset 0 1px 0 rgba(255,255,255,.95);
+      border:1px solid rgba(15,23,42,.07);
+      touch-action:manipulation;
+      user-select:none;
+      -webkit-user-select:none;
+      transition:
+        transform .12s ease,
+        box-shadow .16s ease,
+        border-color .16s ease,
+        background .16s ease,
+        color .16s ease;
+    }
+
+    .discount-option::before{
+      content:"";
+      position:absolute;
+      inset:1px;
+      border-radius:19px;
+      pointer-events:none;
+      background:linear-gradient(180deg, rgba(255,255,255,.46), rgba(255,255,255,0));
+    }
+
+    .discount-option:active{
+      transform:scale(.96);
+    }
+
+    .discount-option.active{
+      color:#fff;
+      border-color:rgba(37,99,235,.45);
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.24), transparent 34%),
+        linear-gradient(180deg, #3b82f6, #2563eb);
+      box-shadow:
+        0 14px 28px rgba(37,99,235,.24),
+        inset 0 1px 0 rgba(255,255,255,.28);
+    }
+
+    .discount-option.active::after{
+      content:"✓";
+      position:absolute;
+      top:7px;
+      right:9px;
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.22);
+      color:#fff;
+      font-size:11px;
+      font-weight:950;
+    }
+
+    .cancel-btn{
+      width:100%;
+      height:54px;
+      border:none;
+      border-radius:18px;
+      background:rgba(15,23,42,.06);
+      color:#475569;
+      font-size:17px;
+      font-weight:850;
+      cursor:pointer;
+      border:1px solid rgba(15,23,42,.06);
+      transition:transform .14s ease, background .14s ease;
+      touch-action:manipulation;
+    }
+
+    .cancel-btn:active{
+      transform:scale(.98);
+      background:rgba(15,23,42,.09);
+    }
+
+    @media (max-width:430px){
+      .discount-grid-wrap{
+        margin-left:16px;
+        margin-right:16px;
+        padding:12px;
+        border-radius:26px;
+      }
+
+      .discount-grid{
+        gap:9px;
+      }
+
+      .discount-option{
+        min-height:58px;
+        border-radius:18px;
+        font-size:19px;
+      }
+    }
+
+    @media (max-width:360px){
+      .discount-grid{
+        gap:7px;
+      }
+
+      .discount-option{
+        min-height:54px;
+        font-size:18px;
+      }
+    }
+
+
+    /* ===== HIỆU ỨNG SMOOTH KHI ĐỔI MỨC GIẢM ===== */
+
+    #selectedDiscountText,
+    #tableTag,
+    #finalPrice,
+    #discountAmount,
+    #remainPercent{
+      transform-origin:center;
+      will-change:transform, opacity, filter;
+    }
+
+    .smooth-pop{
+      animation:smoothPop .38s var(--ease);
+    }
+
+    @keyframes smoothPop{
+      0%{
+        opacity:.58;
+        transform:translateY(4px) scale(.965);
+        filter:blur(2px);
+      }
+      58%{
+        opacity:1;
+        transform:translateY(0) scale(1.035);
+        filter:blur(0);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .smooth-soft{
+      animation:smoothSoft .36s var(--ease);
+      will-change:transform, opacity, filter;
+    }
+
+    @keyframes smoothSoft{
+      0%{
+        opacity:.52;
+        transform:translateY(7px) scale(.992);
+        filter:blur(3px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .range-table-refresh .range-col{
+      animation:rangeColIn .34s var(--ease) both;
+    }
+
+    .range-table-refresh .range-col:nth-child(1){ animation-delay:0s; }
+    .range-table-refresh .range-col:nth-child(2){ animation-delay:.025s; }
+    .range-table-refresh .range-col:nth-child(3){ animation-delay:.05s; }
+    .range-table-refresh .range-col:nth-child(4){ animation-delay:.075s; }
+
+    @keyframes rangeColIn{
+      0%{
+        opacity:.48;
+        transform:translateY(8px);
+        filter:blur(2px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0);
+        filter:blur(0);
+      }
+    }
+
+    .price-grid.smooth-soft .price-item{
+      animation:priceItemIn .30s var(--ease) both;
+    }
+
+    .price-grid.smooth-soft .price-item:nth-child(1){ animation-delay:0s; }
+    .price-grid.smooth-soft .price-item:nth-child(2){ animation-delay:.018s; }
+    .price-grid.smooth-soft .price-item:nth-child(3){ animation-delay:.036s; }
+    .price-grid.smooth-soft .price-item:nth-child(4){ animation-delay:.054s; }
+    .price-grid.smooth-soft .price-item:nth-child(5){ animation-delay:.072s; }
+    .price-grid.smooth-soft .price-item:nth-child(6){ animation-delay:.09s; }
+
+    @keyframes priceItemIn{
+      0%{
+        opacity:.55;
+        transform:translateY(5px) scale(.985);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .discount-grid.picking .discount-option{
+      transition:
+        transform .14s ease,
+        box-shadow .16s ease,
+        border-color .16s ease,
+        background .16s ease,
+        color .16s ease,
+        opacity .16s ease;
+    }
+
+    .discount-grid.picking .discount-option:not(.active){
+      opacity:.62;
+      transform:scale(.98);
+    }
+
+    .discount-grid.picking .discount-option.active{
+      animation:chosenDiscount .28s var(--ease);
+    }
+
+    @keyframes chosenDiscount{
+      0%{ transform:scale(.94); }
+      70%{ transform:scale(1.035); }
+      100%{ transform:scale(1); }
+    }
+
+
+    /* ===== SMOOTH TOÀN BỘ KHI CÓ THAY ĐỔI ===== */
+
+    .smooth-all #selectedDiscountText,
+    .smooth-all #tableTag,
+    .smooth-all #finalPrice,
+    .smooth-all #discountAmount,
+    .smooth-all #remainPercent{
+      animation:smoothValueUpdate .42s var(--ease) both;
+    }
+
+    @keyframes smoothValueUpdate{
+      0%{
+        opacity:.52;
+        transform:translateY(7px) scale(.965);
+        filter:blur(3px);
+      }
+      55%{
+        opacity:1;
+        transform:translateY(-1px) scale(1.035);
+        filter:blur(0);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .smooth-all .result-main{
+      animation:smoothCardGlow .46s var(--ease) both;
+    }
+
+    .smooth-all .mini{
+      animation:smoothMiniCard .38s var(--ease) both;
+    }
+
+    .smooth-all .mini:nth-child(2){
+      animation-delay:.035s;
+    }
+
+    @keyframes smoothCardGlow{
+      0%{
+        transform:translateY(5px) scale(.992);
+        filter:saturate(.92) brightness(.98);
+      }
+      58%{
+        transform:translateY(-1px) scale(1.006);
+        filter:saturate(1.05) brightness(1.02);
+      }
+      100%{
+        transform:translateY(0) scale(1);
+        filter:saturate(1) brightness(1);
+      }
+    }
+
+    @keyframes smoothMiniCard{
+      0%{
+        opacity:.58;
+        transform:translateY(6px) scale(.985);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .smooth-all .price-item{
+      animation:smoothPriceItem .34s var(--ease) both;
+    }
+
+    .smooth-all .price-item:nth-child(1){ animation-delay:0s; }
+    .smooth-all .price-item:nth-child(2){ animation-delay:.018s; }
+    .smooth-all .price-item:nth-child(3){ animation-delay:.036s; }
+    .smooth-all .price-item:nth-child(4){ animation-delay:.054s; }
+    .smooth-all .price-item:nth-child(5){ animation-delay:.072s; }
+    .smooth-all .price-item:nth-child(6){ animation-delay:.09s; }
+
+    @keyframes smoothPriceItem{
+      0%{
+        opacity:.5;
+        transform:translateY(7px) scale(.97);
+        filter:blur(1px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .smooth-all .table-shell{
+      animation:smoothTableShell .42s var(--ease) both;
+    }
+
+    @keyframes smoothTableShell{
+      0%{
+        transform:translateY(5px) scale(.992);
+        filter:blur(1px);
+      }
+      100%{
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .smooth-all .range-col{
+      animation:smoothRangeCol .38s var(--ease) both;
+    }
+
+    .smooth-all .range-col:nth-child(1){ animation-delay:0s; }
+    .smooth-all .range-col:nth-child(2){ animation-delay:.025s; }
+    .smooth-all .range-col:nth-child(3){ animation-delay:.05s; }
+    .smooth-all .range-col:nth-child(4){ animation-delay:.075s; }
+
+    @keyframes smoothRangeCol{
+      0%{
+        opacity:.45;
+        transform:translateY(9px) scale(.992);
+        filter:blur(2px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    .smooth-all .range-row{
+      animation:smoothRangeRow .28s ease-out both;
+    }
+
+    .smooth-all .range-row:nth-child(1),
+    .smooth-all .range-row:nth-child(2),
+    .smooth-all .range-row:nth-child(3),
+    .smooth-all .range-row:nth-child(4),
+    .smooth-all .range-row:nth-child(5){
+      animation-delay:.03s;
+    }
+
+    .smooth-all .range-row:nth-child(n+6):nth-child(-n+10){
+      animation-delay:.055s;
+    }
+
+    .smooth-all .range-row:nth-child(n+11):nth-child(-n+15){
+      animation-delay:.08s;
+    }
+
+    .smooth-all .range-row:nth-child(n+16){
+      animation-delay:.105s;
+    }
+
+    @keyframes smoothRangeRow{
+      0%{
+        opacity:.42;
+        transform:translateY(3px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .smooth-all .discount-option{
+      transition:
+        transform .14s ease,
+        box-shadow .16s ease,
+        border-color .16s ease,
+        background .16s ease,
+        color .16s ease,
+        opacity .16s ease;
+    }
+
+    .smooth-all .discount-option:not(.active){
+      opacity:.72;
+      transform:scale(.985);
+    }
+
+    .smooth-all .discount-option.active{
+      animation:smoothChosenOption .34s var(--ease) both;
+    }
+
+    @keyframes smoothChosenOption{
+      0%{
+        transform:scale(.92);
+        filter:brightness(.98);
+      }
+      62%{
+        transform:scale(1.04);
+        filter:brightness(1.04);
+      }
+      100%{
+        transform:scale(1);
+        filter:brightness(1);
+      }
+    }
+
+    .smooth-all .picker-button{
+      animation:smoothPickerPulse .36s var(--ease) both;
+    }
+
+    @keyframes smoothPickerPulse{
+      0%{ transform:scale(.99); }
+      58%{ transform:scale(1.006); }
+      100%{ transform:scale(1); }
+    }
+
+    .modal.show .sheet{
+      animation:smoothSheetIn .34s var(--ease) both;
+    }
+
+    @keyframes smoothSheetIn{
+      0%{
+        transform:translateY(100%);
+      }
+      100%{
+        transform:translateY(0);
+      }
+    }
+
+    .panel.active{
+      animation:smoothPanelIn .18s var(--ease) both;
+    }
+
+    @keyframes smoothPanelIn{
+      0%{
+        opacity:.64;
+        transform:translateY(8px) scale(.994);
+        filter:blur(2px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+
+    /* ===== TẮT HIỆU ỨNG NẢY SỐ - GIỮ MƯỢT NHẸ ===== */
+
+    .smooth-all #selectedDiscountText,
+    .smooth-all #tableTag,
+    .smooth-all #finalPrice,
+    .smooth-all #discountAmount,
+    .smooth-all #remainPercent,
+    .smooth-all .result-main,
+    .smooth-all .mini,
+    .smooth-all .price-item,
+    .smooth-all .table-shell,
+    .smooth-all .range-col,
+    .smooth-all .range-row,
+    .smooth-all .picker-button,
+    .smooth-all .discount-option.active{
+      animation:smoothFadeOnly .20s ease-out both !important;
+      transform:none !important;
+      filter:none !important;
+    }
+
+    @keyframes smoothFadeOnly{
+      0%{
+        opacity:.72;
+      }
+      100%{
+        opacity:1;
+      }
+    }
+
+    #selectedDiscountText,
+    #tableTag,
+    #finalPrice,
+    #discountAmount,
+    #remainPercent{
+      transform:none !important;
+      filter:none !important;
+      transition:opacity .16s ease;
+    }
+
+    .discount-option,
+    .price-item,
+    .result-main,
+    .mini,
+    .table-shell,
+    .range-col,
+    .range-row{
+      backface-visibility:hidden;
+    }
+
+    .discount-option.active{
+      transform:none !important;
+    }
+
+    .discount-option:active{
+      transform:scale(.985) !important;
+    }
+
   </style>
 </head>
+
 <body>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
@@ -808,7 +1631,7 @@
         </div>
 
         <div class="segment">
-          <div class="segment-indicator" id="segmentIndicator" style="transform: translateX(0px);"></div>
+          <div class="segment-indicator" id="segmentIndicator"></div>
           <button class="segment-btn active" id="tabQuickBtn" type="button">Kết quả nhanh</button>
           <button class="segment-btn" id="tabTableBtn" type="button">Bảng giá sẵn</button>
         </div>
@@ -834,19 +1657,8 @@
             <div class="list-head">
               <h3 class="list-title">Mức giảm phổ biến</h3>
             </div>
-            <div class="price-grid" id="priceGrid"><div class="price-item">
-          <div class="p">Giảm 20%</div>
-          <div class="v">0 ₫</div>
-        </div><div class="price-item">
-          <div class="p">Giảm 30%</div>
-          <div class="v">0 ₫</div>
-        </div><div class="price-item">
-          <div class="p">Giảm 40%</div>
-          <div class="v">0 ₫</div>
-        </div><div class="price-item">
-          <div class="p">Giảm 50%</div>
-          <div class="v">0 ₫</div>
-        </div></div>
+
+            <div class="price-grid" id="priceGrid"></div>
           </div>
 
           <div class="panel" id="panelTable">
@@ -856,327 +1668,7 @@
             </div>
 
             <div class="table-shell">
-              <div class="range-grid" id="rangeTable"><div class="range-col"><div class="range-head">20 - 39</div><div class="range-list"><div class="range-row">
-            <div class="range-old">20</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">8</div>
-          </div><div class="range-row">
-            <div class="range-old">21</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">8</div>
-          </div><div class="range-row">
-            <div class="range-old">22</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">9</div>
-          </div><div class="range-row">
-            <div class="range-old">23</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">9</div>
-          </div><div class="range-row">
-            <div class="range-old">24</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">10</div>
-          </div><div class="range-row">
-            <div class="range-old">25</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">10</div>
-          </div><div class="range-row">
-            <div class="range-old">26</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">10</div>
-          </div><div class="range-row">
-            <div class="range-old">27</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">11</div>
-          </div><div class="range-row">
-            <div class="range-old">28</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">11</div>
-          </div><div class="range-row">
-            <div class="range-old">29</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">12</div>
-          </div><div class="range-row">
-            <div class="range-old">30</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">12</div>
-          </div><div class="range-row">
-            <div class="range-old">31</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">12</div>
-          </div><div class="range-row">
-            <div class="range-old">32</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">13</div>
-          </div><div class="range-row">
-            <div class="range-old">33</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">13</div>
-          </div><div class="range-row">
-            <div class="range-old">34</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">14</div>
-          </div><div class="range-row">
-            <div class="range-old">35</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">14</div>
-          </div><div class="range-row">
-            <div class="range-old">36</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">14</div>
-          </div><div class="range-row">
-            <div class="range-old">37</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">15</div>
-          </div><div class="range-row">
-            <div class="range-old">38</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">15</div>
-          </div><div class="range-row">
-            <div class="range-old">39</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">16</div>
-          </div></div></div><div class="range-col"><div class="range-head">40 - 59</div><div class="range-list"><div class="range-row">
-            <div class="range-old">40</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">16</div>
-          </div><div class="range-row">
-            <div class="range-old">41</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">16</div>
-          </div><div class="range-row">
-            <div class="range-old">42</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">17</div>
-          </div><div class="range-row">
-            <div class="range-old">43</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">17</div>
-          </div><div class="range-row">
-            <div class="range-old">44</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">18</div>
-          </div><div class="range-row">
-            <div class="range-old">45</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">18</div>
-          </div><div class="range-row">
-            <div class="range-old">46</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">18</div>
-          </div><div class="range-row">
-            <div class="range-old">47</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">19</div>
-          </div><div class="range-row">
-            <div class="range-old">48</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">19</div>
-          </div><div class="range-row">
-            <div class="range-old">49</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">20</div>
-          </div><div class="range-row">
-            <div class="range-old">50</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">20</div>
-          </div><div class="range-row">
-            <div class="range-old">51</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">20</div>
-          </div><div class="range-row">
-            <div class="range-old">52</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">21</div>
-          </div><div class="range-row">
-            <div class="range-old">53</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">21</div>
-          </div><div class="range-row">
-            <div class="range-old">54</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">22</div>
-          </div><div class="range-row">
-            <div class="range-old">55</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">22</div>
-          </div><div class="range-row">
-            <div class="range-old">56</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">22</div>
-          </div><div class="range-row">
-            <div class="range-old">57</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">23</div>
-          </div><div class="range-row">
-            <div class="range-old">58</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">23</div>
-          </div><div class="range-row">
-            <div class="range-old">59</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">24</div>
-          </div></div></div><div class="range-col"><div class="range-head">60 - 79</div><div class="range-list"><div class="range-row">
-            <div class="range-old">60</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">24</div>
-          </div><div class="range-row">
-            <div class="range-old">61</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">24</div>
-          </div><div class="range-row">
-            <div class="range-old">62</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">25</div>
-          </div><div class="range-row">
-            <div class="range-old">63</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">25</div>
-          </div><div class="range-row">
-            <div class="range-old">64</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">26</div>
-          </div><div class="range-row">
-            <div class="range-old">65</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">26</div>
-          </div><div class="range-row">
-            <div class="range-old">66</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">26</div>
-          </div><div class="range-row">
-            <div class="range-old">67</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">27</div>
-          </div><div class="range-row">
-            <div class="range-old">68</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">27</div>
-          </div><div class="range-row">
-            <div class="range-old">69</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">28</div>
-          </div><div class="range-row">
-            <div class="range-old">70</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">28</div>
-          </div><div class="range-row">
-            <div class="range-old">71</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">28</div>
-          </div><div class="range-row">
-            <div class="range-old">72</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">29</div>
-          </div><div class="range-row">
-            <div class="range-old">73</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">29</div>
-          </div><div class="range-row">
-            <div class="range-old">74</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">30</div>
-          </div><div class="range-row">
-            <div class="range-old">75</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">30</div>
-          </div><div class="range-row">
-            <div class="range-old">76</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">30</div>
-          </div><div class="range-row">
-            <div class="range-old">77</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">31</div>
-          </div><div class="range-row">
-            <div class="range-old">78</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">31</div>
-          </div><div class="range-row">
-            <div class="range-old">79</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">32</div>
-          </div></div></div><div class="range-col"><div class="range-head">80 - 99</div><div class="range-list"><div class="range-row">
-            <div class="range-old">80</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">32</div>
-          </div><div class="range-row">
-            <div class="range-old">81</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">32</div>
-          </div><div class="range-row">
-            <div class="range-old">82</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">33</div>
-          </div><div class="range-row">
-            <div class="range-old">83</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">33</div>
-          </div><div class="range-row">
-            <div class="range-old">84</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">34</div>
-          </div><div class="range-row">
-            <div class="range-old">85</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">34</div>
-          </div><div class="range-row">
-            <div class="range-old">86</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">34</div>
-          </div><div class="range-row">
-            <div class="range-old">87</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">35</div>
-          </div><div class="range-row">
-            <div class="range-old">88</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">35</div>
-          </div><div class="range-row">
-            <div class="range-old">89</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">36</div>
-          </div><div class="range-row">
-            <div class="range-old">90</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">36</div>
-          </div><div class="range-row">
-            <div class="range-old">91</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">36</div>
-          </div><div class="range-row">
-            <div class="range-old">92</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">37</div>
-          </div><div class="range-row">
-            <div class="range-old">93</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">37</div>
-          </div><div class="range-row">
-            <div class="range-old">94</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">38</div>
-          </div><div class="range-row">
-            <div class="range-old">95</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">38</div>
-          </div><div class="range-row">
-            <div class="range-old">96</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">38</div>
-          </div><div class="range-row">
-            <div class="range-old">97</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">39</div>
-          </div><div class="range-row">
-            <div class="range-old">98</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">39</div>
-          </div><div class="range-row">
-            <div class="range-old">99</div>
-            <div class="range-arrow">→</div>
-            <div class="range-new">40</div>
-          </div></div></div></div>
+              <div class="range-grid" id="rangeTable"></div>
             </div>
           </div>
         </div>
@@ -1191,18 +1683,15 @@
     <div class="backdrop" id="closePicker"></div>
     <div class="sheet">
       <div class="sheet-grabber"></div>
-      <div class="sheet-head">Mức Giảm Giá</div>
-      <div class="sheet-sub">Vuốt lên xuống để chọn phần trăm</div>
+      <div class="sheet-head">Chọn Mức Giảm</div>
+      <div class="sheet-sub">Chạm một lần để áp dụng ngay</div>
 
-      <div class="wheel-wrap">
-        <div class="wheel-fade-top"></div>
-        <div class="wheel-fade-bottom"></div>
-        <div class="wheel-center"></div>
-        <div class="wheel" id="wheel"><div class="wheel-item active" data-value="10">10%</div><div class="wheel-item" data-value="15">15%</div><div class="wheel-item" data-value="20">20%</div><div class="wheel-item" data-value="25">25%</div><div class="wheel-item" data-value="30">30%</div><div class="wheel-item" data-value="35">35%</div><div class="wheel-item" data-value="40">40%</div><div class="wheel-item" data-value="45">45%</div><div class="wheel-item" data-value="50">50%</div><div class="wheel-item" data-value="55">55%</div><div class="wheel-item" data-value="60">60%</div><div class="wheel-item" data-value="70">70%</div><div class="wheel-item" data-value="80">80%</div></div>
+      <div class="discount-grid-wrap">
+        <div class="discount-grid" id="discountGrid"></div>
       </div>
 
       <div class="sheet-actions">
-        <button class="confirm-btn" id="confirmPicker" type="button">Áp dụng ngay</button>
+        <button class="cancel-btn" id="cancelPicker" type="button">Đóng</button>
       </div>
     </div>
   </div>
@@ -1227,14 +1716,14 @@
     const openPickerBtn = document.getElementById("openPicker");
     const pickerModal = document.getElementById("pickerModal");
     const closePicker = document.getElementById("closePicker");
-    const confirmPicker = document.getElementById("confirmPicker");
-    const wheel = document.getElementById("wheel");
+    const cancelPicker = document.getElementById("cancelPicker");
+    const discountGrid = document.getElementById("discountGrid");
 
-    const discounts = [20, 25, 30, 40, 50, 60];
+    const discounts = [20, 25, 30, 40, 50, 60, 70, 80];
+    const quickDiscounts = [20, 25, 30, 40, 50, 60];
 
-    let selectedDiscount = 20;
-    let tempDiscount = 20;
-    let wheelScrollTimer = null;
+    let selectedDiscount = 60;
+    let tempDiscount = 60;
     let activeTab = "quick";
 
     function formatCurrency(number) {
@@ -1265,6 +1754,7 @@
 
     function setActiveTab(tabName) {
       if (activeTab === tabName) return;
+
       const isQuick = tabName === "quick";
       activeTab = tabName;
 
@@ -1273,6 +1763,8 @@
       segmentIndicator.style.transform = isQuick ? "translateX(0)" : "translateX(calc(100% + 4px))";
       panelQuick.classList.toggle("active", isQuick);
       panelTable.classList.toggle("active", !isQuick);
+
+      runSmoothRefresh();
     }
 
     function updateSummary() {
@@ -1290,26 +1782,27 @@
 
       renderPriceGrid(price);
       renderRangeTable();
+      if (discountGrid) highlightDiscountGrid();
       updateClearButton();
     }
 
     function renderPriceGrid(price) {
       priceGrid.innerHTML = "";
-      const showDiscounts = [20, 25, 30, 40, 50, 60];
 
-      showDiscounts.forEach(percent => {
+      quickDiscounts.forEach(percent => {
         const discounted = price - (price * percent / 100);
         const item = document.createElement("div");
+
         item.className = "price-item" + (percent === selectedDiscount ? " active" : "");
         item.innerHTML = `
           <div class="p">Giảm ${percent}%</div>
           <div class="v">${formatCurrency(discounted)}</div>
         `;
+
         item.addEventListener("click", () => {
-          selectedDiscount = percent;
-          tempDiscount = percent;
-          updateSummary();
+          setDiscount(percent, false);
         });
+
         priceGrid.appendChild(item);
       });
     }
@@ -1339,12 +1832,14 @@
         for (let price = group.start; price <= group.end; price += 1000) {
           const discounted = price - (price * selectedDiscount / 100);
           const row = document.createElement("div");
+
           row.className = "range-row";
           row.innerHTML = `
             <div class="range-old">${formatK(price)}</div>
             <div class="range-arrow">→</div>
             <div class="range-new">${formatK(discounted)}</div>
           `;
+
           list.appendChild(row);
         }
 
@@ -1353,54 +1848,70 @@
       });
     }
 
-    function buildWheel() {
-      wheel.innerHTML = "";
+    function buildDiscountGrid() {
+      discountGrid.innerHTML = "";
+
       discounts.forEach(percent => {
-        const item = document.createElement("div");
-        item.className = "wheel-item";
-        item.dataset.value = percent;
-        item.textContent = percent + "%";
-        wheel.appendChild(item);
+        const button = document.createElement("button");
+        button.className = "discount-option" + (percent === selectedDiscount ? " active" : "");
+        button.type = "button";
+        button.dataset.value = percent;
+        button.textContent = percent + "%";
+
+        button.addEventListener("click", () => {
+          setDiscount(percent, true);
+        });
+
+        discountGrid.appendChild(button);
       });
-      highlightWheel();
     }
 
-    function getRowHeight() {
-      return 56;
-    }
-
-    function scrollWheelToValue(value, smooth = true) {
-      const index = discounts.indexOf(value);
-      if (index < 0) return;
-      wheel.scrollTo({ top: index * getRowHeight(), behavior: smooth ? "smooth" : "auto" });
-      tempDiscount = value;
-      highlightWheel();
-    }
-
-    function getNearestValueFromScroll() {
-      const index = Math.round(wheel.scrollTop / getRowHeight());
-      const safeIndex = Math.max(0, Math.min(discounts.length - 1, index));
-      return discounts[safeIndex];
-    }
-
-    function snapWheel() {
-      const value = getNearestValueFromScroll();
-      tempDiscount = value;
-      scrollWheelToValue(value, true);
-      highlightWheel();
-    }
-
-    function highlightWheel() {
-      wheel.querySelectorAll(".wheel-item").forEach(item => {
-        item.classList.toggle("active", Number(item.dataset.value) === tempDiscount);
+    function highlightDiscountGrid() {
+      discountGrid.querySelectorAll(".discount-option").forEach(button => {
+        button.classList.toggle("active", Number(button.dataset.value) === selectedDiscount);
       });
+    }
+
+    function replayAnimation(element, className, duration = 480) {
+      if (!element) return;
+
+      element.classList.remove(className);
+      void element.offsetWidth;
+      element.classList.add(className);
+
+      window.setTimeout(() => {
+        element.classList.remove(className);
+      }, duration);
+    }
+
+    function runSmoothRefresh() {
+      document.body.classList.remove("smooth-all");
+      void document.body.offsetWidth;
+      document.body.classList.add("smooth-all");
+
+      window.setTimeout(() => {
+        document.body.classList.remove("smooth-all");
+      }, 760);
+    }
+
+    function setDiscount(percent, closeAfterSelect = false) {
+      selectedDiscount = percent;
+      tempDiscount = percent;
+
+      updateSummary();
+      runSmoothRefresh();
+
+      if (closeAfterSelect) {
+        window.setTimeout(closeModalFunc, 130);
+      }
     }
 
     function openModal() {
       pickerModal.classList.add("show");
       pickerModal.setAttribute("aria-hidden", "false");
       tempDiscount = selectedDiscount;
-      setTimeout(() => scrollWheelToValue(selectedDiscount, false), 10);
+      highlightDiscountGrid();
+      runSmoothRefresh();
     }
 
     function closeModalFunc() {
@@ -1408,14 +1919,22 @@
       pickerModal.setAttribute("aria-hidden", "true");
     }
 
+    let inputSmoothTimer = null;
+
     originalPriceInput.addEventListener("input", () => {
       originalPriceInput.value = formatInputNumber(originalPriceInput.value);
       updateSummary();
+
+      clearTimeout(inputSmoothTimer);
+      inputSmoothTimer = window.setTimeout(() => {
+        runSmoothRefresh();
+      }, 40);
     });
 
     clearPriceBtn.addEventListener("click", () => {
       originalPriceInput.value = "";
       updateSummary();
+      runSmoothRefresh();
       originalPriceInput.focus();
     });
 
@@ -1424,31 +1943,17 @@
     openPickerBtn.addEventListener("click", openModal);
     closePicker.addEventListener("click", closeModalFunc);
 
-    confirmPicker.addEventListener("click", () => {
-      selectedDiscount = tempDiscount;
-      updateSummary();
-      closeModalFunc();
-    });
-
-    wheel.addEventListener("scroll", () => {
-      tempDiscount = getNearestValueFromScroll();
-      highlightWheel();
-      clearTimeout(wheelScrollTimer);
-      wheelScrollTimer = setTimeout(snapWheel, 80);
-    });
-
-    wheel.addEventListener("touchend", () => {
-      setTimeout(snapWheel, 60);
-    }, { passive: true });
+    cancelPicker.addEventListener("click", closeModalFunc);
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && pickerModal.classList.contains("show")) closeModalFunc();
+      if (e.key === "Escape" && pickerModal.classList.contains("show")) {
+        closeModalFunc();
+      }
     });
 
-    buildWheel();
+    buildDiscountGrid();
     setActiveTab("quick");
     updateSummary();
   </script>
-
-
-</body></html>
+</body>
+</html>
